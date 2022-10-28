@@ -16,5 +16,5 @@ Jay Bentley: jabe1234 (jabe1234@colorado.edu) <br />
   The value of this application will be to personalize weather information intake. With this website, a user will quickly be able to see what the weather is for the day and be able to plan accordingly. Also, the user will be able to see what different cities are experiencing on a given day and get more background on foreign countries.
 <br />
 
-# Vision Statement
+# Vision Statement:
 To provide weather information to busy individuals preparing for the day.
