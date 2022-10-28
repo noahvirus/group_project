@@ -26,5 +26,5 @@ To provide weather information to busy individuals preparing for the day, and we
 # Team Meeting #
 We are going to meet on Saturdays at noon in CSEL.
 
-We will meet with the TA at 6:30pm on Mondays every week.
+We will meet with the TA at 6:30pm on Mondays every week on zoom.
 
