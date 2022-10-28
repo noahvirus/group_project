@@ -17,4 +17,4 @@ Jay Bentley: jabe1234 (jabe1234@colorado.edu) <br />
 <br />
 
 # Vision Statement:
-To provide weather information to busy individuals preparing for the day.
+To provide weather information to busy individuals preparing for the day, and weather wonderers around the world. Unlike other weather applications, our website will provide personalized weather information.
