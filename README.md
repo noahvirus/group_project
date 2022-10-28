@@ -2,7 +2,7 @@
 
 Group members:
 
-Noah Vilas:noahvirus (novi5371@coloraddo.edu) <br />
+Noah Vilas:noahvirus (novi5371@colorado.edu) <br />
 Ian Fernandez: StarWars1980 (iafe2800@colorado.edu) <br />
 Will Dravenstott: wdrav (widr7017@colorado.edu) <br />
 Matthew No: CrownGuilty9 (mano3845@colorado.edu) <br />
