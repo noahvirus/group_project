@@ -1,0 +1,34 @@
+# File to show options for use in our api (Free options that have a lot of availability)
+
+### Note: Could find default popular travel locations to suggest to people instead of searching for temperatures live ###
+
+1. OpenWeatherMap
+
+    Current weather
+    Minute forecast for 1 hour
+    Hourly forecast for 48 hours
+    Daily forecast for 8 days
+    National weather alerts
+    Historical weather data for 40+ years back (since January 1, 1979)
+
+    Pretty simple API calls for this api, and can search by specific latitudes and longitudes.
+
+    Issue is going to be that you can't look up locations by keyword, so may have to use a csv to store many popular cities and their latitudes and longitudes.
+    Also is going to be hard to find places that have similar temperatures.
+
+    Link: https://openweathermap.org/api/one-call-3
+
+2. Weatherbit API
+
+    Issue: very limited; 50 API calls a day, but still has 7 days of future forecasts and current weather.
+
+    Benefits: Able to get information based on an entered string for the city name. 
+
+    Link: https://www.weatherbit.io/api/weather-current
+
+3. WeatherAPI
+
+    Issue: Costs $4 a month for the least amount of features
+    Benefits: Many features; may be overkill
+
+    Link: https://www.weatherapi.com/docs/
