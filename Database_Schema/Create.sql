@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS locations
     high DECIMAL(5,2),
     low DECIMAL(5,2),
     weatherCondition VARCHAR(50),
-    humidity DECIMAL(2,2)
+    humidity DECIMAL(3,2)
 )
 -- will create when I know what we need from a API call
 
