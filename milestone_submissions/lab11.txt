@@ -1,0 +1,19 @@
+Types of testing:
+Manual testing
+Unit testing
+Integration testing
+
+Node unit tests -
+    mocha
+
+    chai
+
+
+
+Test Case for a feature;
+
+1. User acceptance test cases
+2. description of test data
+3. description of test envirnment 
+4. description of test results
+5. information about user acceptance testers
