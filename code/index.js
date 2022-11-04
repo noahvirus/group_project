@@ -20,3 +20,17 @@ app.get('/register', (req, res) => {
 app.listen(3000, function(req, res) {
   console.log("Connected on port:3000");
 });
+
+// Post register information to database
+app.post('/register', async (req, res) => {
+  const hash = await bcrypt.hash(req.body.password, 10);
+  var sql = "INSERT INTO users (username, password) VALUES ($1, $2)";
+
+  db.query(sql, [req.body.username, hash])
+  .then(data => {
+      res.redirect('/login');
+  })
+  .catch(data => {
+      res.redirect('/register');
+  })
+});
