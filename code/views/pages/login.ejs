@@ -3,24 +3,26 @@
 
 <main>
   <div class="container">
-    
-    <style>
-      body {
-        background-image: url('https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/NL0L5N5Rgimkt8edi/videoblocks-a-heavy-rain-in-nature-wet-big-rocks_sasn-l6pv_thumbnail-1080_01.png');
-      }
-      </style>
+    <form id="form" action = "/login" method="POST">
+      <style>
+        body {
+          background-image: url('https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/NL0L5N5Rgimkt8edi/videoblocks-a-heavy-rain-in-nature-wet-big-rocks_sasn-l6pv_thumbnail-1080_01.png');
+        }
+        a {color: brown;}
+        </style>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="username" class="form-control" id="username" name="username">
+          </div>
+   
+        <div class="mb-3" id="password">
+          <label for="username" class="form-label">User Name</label>
+          <input type="text" class="form-control" id="username" name = "username">
+        </div>
 
-      <div class="form-group">
-        <label for="usr">User Name:</label>
-        <input type="text" class="form-control" id="usr">
-      </div>
-      <div class="form-group">
-        <label for="pwd">Password:</label>
-        <input type="password" class="form-control" id="pwd">
-      </div>
-      <button type="button" class="btn btn-primary" onclick="check_user(usr,pwd)">Primary</button>
-  </div>
-  <a href="./register.ejs">Register an Account</a>
+        <button type="submit" class="btn btn-primary" onclick="add_user(usr,pwd)">Login</button>
+      </form>
+      <a href="./register">register an Account</a>
 </main>
 
 <%- include ('../partials/footer') %>
