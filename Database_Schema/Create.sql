@@ -4,10 +4,7 @@ CREATE TABLE IF NOT EXISTS users
     userID SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     password VARCHAR(60) NOT NULL,
-    birthday DATE,
-    location1 VARCHAR(50),
-    location2 VARCHAR(50),
-    location3 VARCHAR(50)
+    birthday DATE
 )
 
 

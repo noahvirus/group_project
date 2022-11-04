@@ -3,7 +3,7 @@
 -- Mainly for idea of formatting right now
 INSERT INTO users(username, password, bithday, location1, location2, location3)
 VALUES
-    ('test1234', '123456789', '1999-05-12', 'Paris', 'Tokyo', 'Berlin');
+    ('test1234', '123456789', '1999-05-12');
 
 
 INSERT INTO locations(locationName, high, low, weatherCondition, humidity)
