@@ -10,6 +10,8 @@ Gustavo Sanchez-Sanchez: gusa9787 (gusa9787@colorado.edu) <br />
 Jay Bentley: jabe1234 (jabe1234@colorado.edu) <br />
 
 # Application Name: WeatherMen
+
+# Application Description
   This application will be a website focused on displaying the weather in different cities in the world. A user will also be able to register and log in to the website to save certain cities that will be allocated to their user information. Along with this, a user will be able to find places with similar temperatures around the world. As well as this, a user will be able to find locations to travel to based off several options. Also, a user will be able to see what clothes they should wear on the given day.
 <br />
 <br />
