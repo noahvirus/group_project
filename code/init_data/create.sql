@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users
     username VARCHAR(50) NOT NULL,
     password VARCHAR(60) NOT NULL,
     birthday DATE
-)
+);
 
 
 
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS locations
     low DECIMAL(5,2),
     weatherCondition VARCHAR(50),
     humidity DECIMAL(3,2)
-)
+);
 -- will create when I know what we need from a API call
 
 
@@ -31,4 +31,4 @@ CREATE TABLE IF NOT EXISTS usersToLocations
     locationID INTEGER NOT NULL,
     FOREIGN KEY (userID) REFERENCES users(userID) ON UPDATE CASCADE,
     FOREIGN KEY (locationID) REFERENCES locations(locationID) ON UPDATE CASCADE,
-)
+);
