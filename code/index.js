@@ -104,6 +104,7 @@ app.get('/logout', (req, res) => {
   res.render("pages/login", {
     message: `Successfully logged out`,
   });
+});
 
 app.post('/register', async (req, res) => {
   //the logic goes here
