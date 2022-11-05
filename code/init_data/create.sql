@@ -3,8 +3,7 @@ CREATE TABLE IF NOT EXISTS users
 (
     userID SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
-    password VARCHAR(60) NOT NULL,
-    birthday DATE
+    password VARCHAR(60) NOT NULL
 );
 
 
@@ -20,6 +19,7 @@ CREATE TABLE IF NOT EXISTS locations
     humidity DECIMAL(3,2)
 );
 -- will create when I know what we need from a API call
+-- will then create 100 locations in a create.sql
 
 
 

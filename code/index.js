@@ -1,5 +1,6 @@
 var express = require('express'); 
 var app = express(); 
+const bodyParser = require('body-parser');
 const session = require('express-session'); // allow us to save a user's data when they're browsing the website
 const bcrypt = require('bcrypt'); // for use with username and password
     
@@ -43,6 +44,25 @@ app.get("/login", function(req, res) {
 
 app.get('/register', (req, res) => {
   res.render('pages/register');
+});
+
+app.post('/register', async (req, res) => {
+  //the logic goes here
+
+  const query = 'INSERT into users (username, password) values ($1, $2) returning *;';
+  const hash = await bcrypt.hash(req.body.password, 10);
+
+  db.any(query, [
+      req.body.username,
+      hash
+  ])
+  .then(function (data) {
+      res.redirect('/login');
+  })
+  .catch(function (err) {
+      res.redirect('/register');
+  });
+  
 });
     
 // Server setup
