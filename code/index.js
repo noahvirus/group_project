@@ -128,3 +128,10 @@ app.post('/register', async (req, res) => {
 app.listen(3000, function(req, res) {
   console.log("Connected on port:3000");
 });
+
+app.post('/home', async (req, res) => {
+  const query = 'select * from locations'
+  db.one(query)
+    .then(async)
+
+});
