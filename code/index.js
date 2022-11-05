@@ -104,6 +104,7 @@ app.get('/logout', (req, res) => {
   res.render("pages/login", {
     message: `Successfully logged out`,
   });
+});
 
 app.post('/register', async (req, res) => {
   //the logic goes here
@@ -127,4 +128,11 @@ app.post('/register', async (req, res) => {
 // Server setup
 app.listen(3000, function(req, res) {
   console.log("Connected on port:3000");
+});
+
+app.post('/home', async (req, res) => {
+  const query = 'select * from locations'
+  db.one(query)
+    .then(async)
+
 });
