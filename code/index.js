@@ -44,9 +44,66 @@ app.get("/login", function(req, res) {
   res.render("pages/login");
 });
 
+
+app.post('/login', async (req, res) => {
+  //the logic goes here
+  const hash = await bcrypt.hash(req.body.password, 10);
+  // insert into the database
+  var query = `SELECT password FROM users 
+  WHERE username = $1;`
+  db.any(query, [
+    req.body.username,
+  ])
+    // .then((user)) {
+    //   console.log("before bcrypt")
+    //   console.log(req.body.password)
+    //   console.log(user.password)
+    //   const match = await bcrypt.compare(req.body.password, user.password);
+    //   console.log("after hash")
+
+      .then(async (user) => {   
+          if (user.length == 0) {
+            // then there was no password for username and they need to register
+            console.log("Username not registered")
+            res.redirect('/register')
+          }     
+          else {
+          const match = await bcrypt.compare(req.body.password, user[0].password);
+
+      if (match) {
+        req.session.user = {
+          api_key: process.env.API_KEY,
+        };
+        req.session.save();
+        res.redirect('/discover')
+      }
+      else {
+        console.log("Incorrect Username or Password")
+        res.redirect('/login')
+      }
+          }
+    })
+    .catch(function (err) {
+      res.send(err);
+      console.log("Login Post method errored")
+      res.redirect('/login')
+    });
+
+  });
+
 app.get('/register', (req, res) => {
   res.render('pages/register');
 });
+
+
+app.get('/home', (req, res) => {
+  res.render('pages/home');
+});
+
+app.get('/logout', (req, res) => {
+  res.render("pages/login", {
+    message: `Successfully logged out`,
+  });
 
 app.post('/register', async (req, res) => {
   //the logic goes here
