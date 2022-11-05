@@ -30,5 +30,5 @@ CREATE TABLE IF NOT EXISTS usersToLocations
     userID INTEGER NOT NULL,
     locationID INTEGER NOT NULL,
     FOREIGN KEY (userID) REFERENCES users(userID) ON UPDATE CASCADE,
-    FOREIGN KEY (locationID) REFERENCES locations(locationID) ON UPDATE CASCADE,
+    FOREIGN KEY (locationID) REFERENCES locations(locationID) ON UPDATE CASCADE
 );
