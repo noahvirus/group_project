@@ -1,0 +1,68 @@
+
+Lab 10 Write Up
+
+Recitation 014
+Team Number: 06 
+Team Name: Weather Boys
+
+Team Members:
+
+Noah Vilas:noahvirus (novi5371@colorado.edu)
+Ian Fernandez: StarWars1980 (iafe2800@colorado.edu)
+Will Dravenstott: wdrav (widr7017@colorado.edu)
+Matthew No: CrownGuilty9 (mano3845@colorado.edu)
+Gustavo Sanchez-Sanchez: gusa9787 (gusa9787@colorado.edu)
+Jay Bentley: jabe1234 (jabe1234@colorado.edu)
+
+Application Name: WeatherMen
+
+Application Description:
+
+This application will be a website focused on displaying the weather in different cities in the world.
+A user will also be able to register and log in to the website to save certain cities that will be 
+allocated to their user information. Along with this, a user will be able to find places with 
+similar temperatures around the world. As well as this, a user will be able to find locations to travel 
+to based off several options. Also, a user will be able to see what clothes they should wear on the given day.
+
+The value of this application will be to personalize weather information intake. With this website, a user will 
+quickly be able to see what the weather is for the day and be able to plan accordingly. Also, the user will be able 
+to see what different cities are experiencing on a given day and get more background on foreign countries. We will 
+offer travel suggestions to individuals for cities that have similar weather conditions to their favorite locations.
+
+Vision Statement:
+
+To provide weather information to busy individuals preparing for the day, and weather wonderers around the world. 
+Unlike other weather applications, our website will provide personalized weather information.
+
+Version Control:
+
+https://github.com/noahvirus/group_project
+
+Development Methodology:
+
+We constructed a project board with multiple epics and corresponding user stories for each epic.
+We will continue to update this board with more details and more user stories as we continue development.
+
+Communication Plan:
+
+We will be using Discord to communicate as a team.
+We also exchanged phone numbers for an alternative plan of communication.
+
+Meeting Plan:
+
+    Team Meeting:
+
+    We are going to meet on Saturdays at noon in CSEL in person. 
+    We will also plan additional meetings over zoom or in-person as is needed to solve problems as they present themselves.
+
+    Weekly Meeting with TA:
+
+    We will meet with the TA at 6:30pm on Mondays every week on google meet.
+
+Use Case Diagram:
+
+See UML_Diagram.png in Wireframe_UseCase directory for the Use Case Diagram.
+
+Wireframes:
+
+See page png files in Wireframe_UseCase directory for the Wireframe diagrams.

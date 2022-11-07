@@ -1,0 +1,14 @@
+Plan for week 2:
+
+We would like to finish:
+
+* Determine which API calls we will use from WeatherAPI to get desired information
+* Determine how we will store that information
+* Develop Node.js calls to implement API information into pages
+    * Display weather for popular cities on home page
+    * Display favorite cities weather on profile page
+* Develop Discover page to add popular cities to profile favorite
+* Develop the travel suggestion algorithm 
+    * Implement that algorithm into the travel page using user favorite cities
+
+* Create corresponding Board User Stories and update them correspondingly
