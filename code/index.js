@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const pgp = require('pg-promise')();
 const session = require('express-session'); // allow us to save a user's data when they're browsing the website
 const bcrypt = require('bcrypt'); // for use with username and password
+const axios = require('axios');
     
 // Set EJS as templating engine 
 app.set('view engine', 'ejs'); 
@@ -75,7 +76,7 @@ app.post('/login', async (req, res) => {
           api_key: process.env.API_KEY,
         };
         req.session.save();
-        res.redirect('/discover')
+        res.redirect('/home')
       }
       else {
         console.log("Incorrect Username or Password")
@@ -123,6 +124,28 @@ app.post('/register', async (req, res) => {
       res.redirect('/register');
   });
   
+});
+
+app.post('/home', async (req,res) =>{
+  axios({
+        url: `http://api.weatherapi.com/v1/current.json`,
+        method: 'GET',
+        data: {
+            "key": req.session.user.api_key,
+            "q": "London" 
+        }
+    })
+    .then(results => { // the results will be displayed on the terminal if the docker containers are running
+        console.log(results);
+        res.render('pages/home',{
+            current: results
+        });
+    })
+    .catch(error => {
+    // Handle errors
+        console.log("Error", error);
+        res.render('pages/login');
+    })
 });
     
 // Server setup
