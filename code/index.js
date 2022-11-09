@@ -97,9 +97,9 @@ app.get('/register', (req, res) => {
 });
 
 
-app.get('/home', (req, res) => {
-  res.render('pages/home');
-});
+// app.get('/home', (req, res) => {
+//   res.render('pages/home');
+// });
 
 app.get('/logout', (req, res) => {
   res.render("pages/login", {
@@ -126,19 +126,31 @@ app.post('/register', async (req, res) => {
   
 });
 
-app.post('/home', async (req,res) =>{
+
+const auth = (req, res, next) => {
+if (!req.session.user) {
+    // Default to register page.
+    res.redirect('/register');
+}
+next();
+};
+
+app.get('/home', auth, (req,res) =>{
+  console.log("here");
   axios({
-        url: `http://api.weatherapi.com/v1/current.json`,
-        method: 'GET',
-        data: {
-            "key": req.session.user.api_key,
-            "q": "London" 
-        }
+        url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=London`,
+        method: 'GET'
+        // data: {
+        //     "key": req.session.user.api_key,
+        //     "q": "London",
+        //     "days": 4,
+        //     "aqi": "no"
+        // }
     })
-    .then(results => { // the results will be displayed on the terminal if the docker containers are running
-        console.log(results);
+    .then(results => {
+       // the results will be displayed on the terminal if the docker containers are running
         res.render('pages/home',{
-            current: results
+            current: results.data.current
         });
     })
     .catch(error => {
