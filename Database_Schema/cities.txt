@@ -83,3 +83,20 @@ New Delhi, India
 Adelaide, Australia
 Tripoli, Libya
 Male, Maldives
+Luxembourg, Luxembourg
+Kuala Lampur, Malaysia
+Glasgow, Scotland
+Valletta, Malta
+Kathmandu, Nepal
+Brussels, Belgium
+Panama City, Panama
+Bucharest, Romania
+Cardiff, Wales
+Manila, Phillipines
+Castries, Saint Lucia
+Apia, Samoa
+Bern, Switzerland
+Taipei, Taiwan
+Hobert, Australia
+Budapest, Hungary
+Reykjavik, Iceland
