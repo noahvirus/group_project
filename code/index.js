@@ -136,3 +136,9 @@ app.post('/home', async (req, res) => {
     .then(async)
 
 });
+
+app.get('/discover', (req, res) => {
+  res.render("pages/discover", {
+    message: `Need to add search query`,
+  });
+});
