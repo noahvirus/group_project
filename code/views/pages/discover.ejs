@@ -8,14 +8,27 @@
           <thead>
             <tr>
               <th scope="col">City</th>
-              
-              <th scope="col">High</th>
-              <th scope="col">Low</th>
-              <th scope="col">Humidity</th>
-              <th scope="col">Local Time</th>                            
+              <th scope="col">Country</th>
+              <th scope="col">Favorite</th>                            
             </tr>
           </thead>
           <tbody>
+
+            <% data.forEach(place => { %>
+              <form id="form" action = "/addFavorite" method="POST"></form>
+
+              <tr>
+                <th> <%-place.city%></th>
+                <th> <%-place.country%></th>
+                <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityID %>">
+                <th> 
+                    <button type="submit" class="btn btn-outline-success">Favorite</button>
+
+                </th>
+              </tr>
+
+            </form>
+            <% }); %>
   
               </tbody>
             </table>
