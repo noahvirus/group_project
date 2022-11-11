@@ -1,0 +1,36 @@
+<div class="col"><%- include ('../partials/message') %></div>
+<%- include ('../partials/header') %> <%- include ('../partials/menu') %>
+
+<main>
+  <div class="container">
+    <!-- THE REST OF YOUR HTML CODE GOES HERE -->
+    <table class="table">
+      <thead>
+          <th>City</th>
+          <th>Temperature</th>
+          <th>Local Time</th>
+          <th>Humidity</th>
+      </thead>
+      <tbody>
+          </div>
+          <% current.forEach(el => { %>
+            <tr>
+              <td><%=  el.location.name%></td>
+              <td><%=  el.current.temp_f%></td>
+              <td><%=  el.location.localtime%></td>
+              <td><%=  el.humidity%></td>
+              <td>
+                  <form action='' method= "POST">
+                    <input type='hidden' name ='course_id' value="<%= el.course_id %>"/>
+                    <button type='submit' name="color_selection" class="btn btn-block" style="background-color: cadetblue;">view</button>
+                  </form>
+              </td>
+              <% }); %>
+              </td>
+            </tr>
+      </tbody>
+  </table>
+  </div>
+</main>
+
+<%- include ('../partials/footer') %>

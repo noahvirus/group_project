@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const pgp = require('pg-promise')();
 const session = require('express-session'); // allow us to save a user's data when they're browsing the website
 const bcrypt = require('bcrypt'); // for use with username and password
+const axios = require('axios');
     
 // Set EJS as templating engine 
 app.set('view engine', 'ejs'); 
@@ -75,7 +76,7 @@ app.post('/login', async (req, res) => {
           api_key: process.env.API_KEY,
         };
         req.session.save();
-        res.redirect('/discover')
+        res.redirect('/home')
       }
       else {
         console.log("Incorrect Username or Password")
@@ -98,6 +99,26 @@ app.get('/register', (req, res) => {
 
 app.get('/home', (req, res) => {
   res.render('pages/home');
+});
+
+app.get('/home?location=title', (req, res) =>{ //unfinished
+  axios({
+     url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=London`,
+        method: 'GET',
+        // dataType:'json',
+        // params: {
+        //     "key": req.session.user.api_key,
+        //     "q": req.body.title, //if these are relevant for our api
+        //     "days": 5,
+        // }
+     })
+     .then(results => {
+        console.log(results.data); 
+      res.render("pages/results", {current: results.data.current}); //pass a parameter to store the values of the api call
+     })
+     .catch(error => {
+      res.render("pages/home", {message: "API call failed"});
+     });
 });
 
 app.get('/logout', (req, res) => {
