@@ -103,21 +103,21 @@ app.get('/home', (req, res) => {
 app.get('/travel', (req, res) => {
   res.render('pages/travel');
 });
-
-/*app.post('/travel', async (req, res) => {
+/*
+app.post('/travel', async (req, res) => {
   //if not logged in,
   //console.log("You are not logged in")
   //res.redirect ('/login')
   //else
   //
 };
-});
+});*/
 
 app.get('/logout', (req, res) => {
   res.render("pages/login", {
     message: `Successfully logged out`,
   });
-});*/
+});
 
 app.post('/register', async (req, res) => {
   //the logic goes here
