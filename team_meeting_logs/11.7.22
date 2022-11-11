@@ -1,0 +1,32 @@
+Meeting notes
+Home page:
+Everything should be in cards or containers
+Every piece of code should be modular and dynamic
+Nothing should be hardcoded
+Should loop through to be created on page loading
+Use the information from the api and send to the page
+Should fill the page with the information gotten from the api
+Make it modular
+Must discuss with database and front end people: Should be user friendly so it makes sense as to what to do next
+Front end sells - needs to be appealing
+    Jay - 
+    Last week: Created the database, several tables
+    This upcoming week - working on home page, card creation for first 100 locations
+    Will - 
+    Last week: Found and signed up for the API, worked with sample API calls and found datapoints
+    This upcoming week: Completing API calls and working with the front end people to create data highways
+    Gus - 
+    Last week: Out of town, unable to do much, an api call
+    This upcoming week: Working on the favorites page
+    Noah - 
+    Last week: Login and registration pages and helped with the ejs
+    This week: Pick up something from the icebox - ejs page for clothing
+    Matthew - 
+    Last week: Creating travel page, implementing carousel
+    Next week: Continuing to use carousel, adding several images of locations we are adding
+    Ian -
+    Last week: Added user stories to the project board
+    Next week: Started to work on search bar where user is able to search by city and get a response, still figuring out api, not sure if drawing from the database or api, also may be working on clothing.ejs, not sure about that idea
+    For next week -
+    Add screenshots for all of the pages to ensure that we will be able to share it during the meeting
+Written by Will Dravenstott
