@@ -165,9 +165,21 @@ app.listen(3000, function(req, res) {
   console.log("Connected on port:3000");
 });
 
-app.post('/home', async (req, res) => {
-  const query = 'select * from locations'
-  db.one(query)
-    .then(async)
+app.get('/discover', (req, res) => {
+  const query = 'SELECT * FROM cities;';
+
+  db.any(query)
+      .then(async (data) => {
+          res.render("pages/discover", {
+          data : data,
+        });
+
+      })
+      .catch(function (err) {
+        res.send(err);
+      });
+});
+
+app.post('/addFavorite', (req, res) => {
 
 });
