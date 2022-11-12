@@ -101,6 +101,41 @@ app.get('/register', (req, res) => {
 //   res.render('pages/home');
 // });
 
+const auth = (req, res, next) => {
+  if (!req.session.user) {
+      // Default to register page.
+      res.redirect('/register');
+  }
+  next();
+  };
+
+app.get('/results?:location', (req, res) =>{ //unfinished
+  // const location = req.body.location;
+  const location = req.query.location;
+  axios({
+     url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=${location}`,
+        method: 'GET'
+        // dataType:'json',
+        // params: {
+        //     "key": req.session.user.api_key,
+        //     "q": title, //if these are relevant for our api
+        //     "days": 5,
+        // }
+     })
+     .then(results => {
+        console.log(results.data); 
+        res.render("pages/results", {search: results.data}); //pass a parameter to store the values of the api call
+     })
+     .catch(error => {
+      console.log(error);
+      res.render("pages/home", {message: "API call failed"});
+     });
+});
+
+app.get('/results', (req, res) => {
+  res.render('pages/results');
+});
+
 app.get('/logout', (req, res) => {
   res.render("pages/login", {
     message: `Successfully logged out`,
