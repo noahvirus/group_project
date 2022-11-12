@@ -15,12 +15,12 @@
           <tbody>
 
             <% data.forEach(place => { %>
-              <form id="form" action = "/addFavorite" method="POST"></form>
+              <form id="form" action = "/discover/add" method="POST">
 
               <tr>
                 <th> <%-place.city%></th>
                 <th> <%-place.country%></th>
-                <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityID %>">
+                <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityid %>">
                 <th> 
                     <button type="submit" class="btn btn-outline-success">Favorite</button>
 

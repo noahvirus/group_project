@@ -74,9 +74,10 @@ app.post('/login', async (req, res) => {
       if (match) {
         req.session.user = {
           api_key: process.env.API_KEY,
-          username: user[0].userID,
+          username: user[0].userid,
         };
         req.session.save();
+        console.log(user[0].userid);
         res.redirect('/home')
       }
       else {
@@ -170,6 +171,8 @@ app.listen(3000, function(req, res) {
 app.get('/discover', (req, res) => {
   const query = 'SELECT * FROM cities;';
 
+  // const query = `SELECT * FROM usersToCities INNER JOIN cities USING (cityID) WHERE userID = ${req.session.user.username};`
+
   db.any(query)
       .then(async (data) => {
           res.render("pages/discover", {
@@ -182,18 +185,31 @@ app.get('/discover', (req, res) => {
       });
 });
 
-app.post('/addFavorite', (req, res) => {
+app.post('/discover/add', (req, res) => {
   console.log('added');
   const query = 'INSERT into usersToCities (userID, cityID) values ($1, $2) returning *;';
+
+  console.log(req.session.user.username);
+  console.log(req.body);
 
     db.any(query, [
       req.session.user.username,
       req.body.cityID
   ])
   .then(function (data) {
-      res.render('pages/discover', {
-        message: `Sucessfully added location`
-      });
+    const query = 'SELECT * FROM cities;';
+
+    db.any(query)
+        .then(async (data) => {
+            res.render("pages/discover", {
+            data : data,
+            message: `Sucessfully added location`
+          });
+  
+        })
+        .catch(function (err) {
+          res.send(err);
+        });
   })
   .catch(function (err) {
       res.redirect('/register');
