@@ -50,7 +50,7 @@ app.post('/login', async (req, res) => {
   //the logic goes here
   const hash = await bcrypt.hash(req.body.password, 10);
   // insert into the database
-  var query = `SELECT password FROM users 
+  var query = `SELECT password,userID FROM users 
   WHERE username = $1;`
   db.any(query, [
     req.body.username,
@@ -74,6 +74,7 @@ app.post('/login', async (req, res) => {
       if (match) {
         req.session.user = {
           api_key: process.env.API_KEY,
+          username: user[0].userID,
         };
         req.session.save();
         res.redirect('/home')
@@ -102,6 +103,7 @@ app.get('/register', (req, res) => {
 // });
 
 app.get('/logout', (req, res) => {
+  req.session.destroy();
   res.render("pages/login", {
     message: `Successfully logged out`,
   });
@@ -181,5 +183,20 @@ app.get('/discover', (req, res) => {
 });
 
 app.post('/addFavorite', (req, res) => {
+  console.log('added');
+  const query = 'INSERT into usersToCities (userID, cityID) values ($1, $2) returning *;';
+
+    db.any(query, [
+      req.session.user.username,
+      req.body.cityID
+  ])
+  .then(function (data) {
+      res.render('pages/discover', {
+        message: `Sucessfully added location`
+      });
+  })
+  .catch(function (err) {
+      res.redirect('/register');
+  });
 
 });
