@@ -101,24 +101,39 @@ app.get('/home', (req, res) => {
   res.render('pages/home');
 });
 
-app.get('/home?location=title', (req, res) =>{ //unfinished
+const auth = (req, res, next) => {
+  if (!req.session.user) {
+      // Default to register page.
+      res.redirect('/register');
+  }
+  next();
+  };
+
+app.get('/results?:location', (req, res) =>{ //unfinished
+  // const location = req.body.location;
+  const location = req.query.location;
   axios({
-     url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=London`,
-        method: 'GET',
+     url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=${location}`,
+        method: 'GET'
         // dataType:'json',
         // params: {
         //     "key": req.session.user.api_key,
-        //     "q": req.body.title, //if these are relevant for our api
+        //     "q": title, //if these are relevant for our api
         //     "days": 5,
         // }
      })
      .then(results => {
         console.log(results.data); 
-      res.render("pages/results", {current: results.data.current}); //pass a parameter to store the values of the api call
+        res.render("pages/results", {search: results.data}); //pass a parameter to store the values of the api call
      })
      .catch(error => {
+      console.log(error);
       res.render("pages/home", {message: "API call failed"});
      });
+});
+
+app.get('/results', (req, res) => {
+  res.render('pages/results');
 });
 
 app.get('/logout', (req, res) => {
