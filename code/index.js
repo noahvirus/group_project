@@ -173,10 +173,24 @@ app.get('/discover', (req, res) => {
 
   // const query = `SELECT * FROM usersToCities INNER JOIN cities USING (cityID) WHERE userID = ${req.session.user.username};`
 
+  const query2 = `SELECT c.cityID, c.city, c.country FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1 `
+
   db.any(query)
       .then(async (data) => {
-          res.render("pages/discover", {
-          data : data,
+
+        db.any(query2, [
+          req.session.user.username
+      ])
+        .then(async (data2) => {
+            console.log(data2);
+            res.render("pages/discover", {
+            data : data,
+            data2 : data2
+          });
+  
+        })
+        .catch(function (err) {
+          res.send(err);
         });
 
       })
@@ -199,11 +213,72 @@ app.post('/discover/add', (req, res) => {
   .then(function (data) {
     const query = 'SELECT * FROM cities;';
 
+    const query2 = `SELECT c.cityID, c.city, c.country FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1 `
+
     db.any(query)
         .then(async (data) => {
-            res.render("pages/discover", {
-            data : data,
-            message: `Sucessfully added location`
+
+          db.any(query2, [
+            req.session.user.username
+        ])
+          .then(async (data2) => {
+              console.log(data2);
+              res.render("pages/discover", {
+              data : data,
+              message: `Sucessfully added location`,
+              data2 : data2
+            });
+    
+          })
+          .catch(function (err) {
+            res.send(err);
+          });
+  
+        })
+        .catch(function (err) {
+          res.send(err);
+        });
+  })
+  .catch(function (err) {
+      res.redirect('/register');
+  });
+
+});
+
+
+app.post('/discover/remove', (req, res) => {
+  console.log('added');
+  const query = 'DELETE FROM usersToCities WHERE userID = $1 AND cityID = $2;';
+
+  console.log(req.session.user.username);
+  console.log(req.body);
+
+    db.any(query, [
+      req.session.user.username,
+      req.body.cityID
+  ])
+  .then(function (data) {
+    const query = 'SELECT * FROM cities;';
+
+    const query2 = `SELECT * FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1 `
+
+    db.any(query)
+        .then(async (data) => {
+
+          db.any(query2, [
+            req.session.user.username
+        ])
+          .then(async (data2) => {
+              console.log(data2);
+              res.render("pages/discover", {
+              data : data,
+              message: `Sucessfully removed location`,
+              data2 : data2
+            });
+    
+          })
+          .catch(function (err) {
+            res.send(err);
           });
   
         })
