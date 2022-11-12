@@ -4,18 +4,23 @@
 <main>
     <div class="container">
       <!-- THE REST OF YOUR HTML CODE GOES HERE -->
+      <form action="/results" method="GET"> 
+        <input type="search" id="location" name="location" placeholder="Search...">
+        <button>Search</button>
+      </form>
       <table class="table" id = "CLASSTABLE">
           <thead>
             <tr>
               <th scope="col">City</th>
-              
               <th scope="col">High</th>
               <th scope="col">Low</th>
               <th scope="col">Humidity</th>
               <th scope="col">Local Time</th>                            
             </tr>
           </thead>
+            <td> <%= current.temp_f  %></td>
           <tbody>
+
   
               </tbody>
             </table>
