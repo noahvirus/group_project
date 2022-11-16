@@ -75,6 +75,7 @@ app.post('/login', async (req, res) => {
         req.session.user = {
           api_key: process.env.API_KEY,
           username: user[0].userid,
+          user: req.body.username
         };
         req.session.save();
         console.log(user[0].userid);
@@ -164,14 +165,6 @@ app.post('/register', async (req, res) => {
   
 });
 
-
-const auth = (req, res, next) => {
-if (!req.session.user) {
-    // Default to register page.
-    res.redirect('/register');
-}
-next();
-};
 
 app.get('/home', auth, (req,res) =>{
   console.log("here");
@@ -325,4 +318,24 @@ app.post('/discover/remove', (req, res) => {
       res.redirect('/register');
   });
 
+});
+
+
+app.get('/profile', (req, res) => {
+  const query2 = `SELECT * FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1;`
+
+  db.any(query2, [
+    req.session.user.username
+])
+  .then(async (data) => {
+      console.log(data);
+      res.render('pages/profile', {
+      data : data,
+      username : req.session.user.user
+    });
+
+  })
+  .catch(function (err) {
+    res.send(err);
+  });
 });
