@@ -14,20 +14,61 @@
           </thead>
           <tbody>
 
+
             <% data.forEach(place => { %>
-              <form id="form" action = "/addFavorite" method="POST"></form>
+              <% let test = false %>
+              <% data2.forEach(fav => {
+                  if (fav.cityid == place.cityid) {
+                    test = true;
+                  }
+              }); %>
+              <% if (test == true) { %>
+                <form id="form" action = "/discover/remove" method="POST">
+
+                  <tr>
+                    <th> <%-place.city%></th>
+                    <th> <%-place.country%></th>
+                    <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityid %>">
+                    <th> 
+                        <button type="submit" class="btn btn-outline-danger">Remove</button>
+                        
+                    </th>
+                  </tr>
+    
+                </form>
+                <% } else {%>
+                  <form id="form" action = "/discover/add" method="POST">
+
+                    <tr>
+                      <th> <%-place.city%></th>
+                      <th> <%-place.country%></th>
+                      <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityid %>">
+                      <th> 
+                          <button type="submit" class="btn btn-outline-success">Favorite</button>
+                          
+                      </th>
+                    </tr>
+      
+                  </form>
+                  <% } %>
+
+
+
+
+
+              <!-- <form id="form" action = "/discover/add" method="POST">
 
               <tr>
                 <th> <%-place.city%></th>
                 <th> <%-place.country%></th>
-                <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityID %>">
+                <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityid %>">
                 <th> 
                     <button type="submit" class="btn btn-outline-success">Favorite</button>
-
+                    
                 </th>
               </tr>
 
-            </form>
+            </form> -->
             <% }); %>
   
               </tbody>
