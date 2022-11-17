@@ -139,19 +139,6 @@ app.get('/results', (req, res) => {
   res.render('pages/results');
 });
 
-app.get('/travel', (req, res) => {
-  res.render('pages/travel');
-});
-/*
-app.post('/travel', async (req, res) => {
-  //if not logged in,
-  //console.log("You are not logged in")
-  //res.redirect ('/login')
-  //else
-  //
-};
-});*/
-
 app.get('/logout', (req, res) => {
   req.session.destroy();
   res.render("pages/login", {
@@ -351,4 +338,27 @@ app.get('/profile', (req, res) => {
   .catch(function (err) {
     res.send(err);
   });
+});
+
+app.get('/travel', (req, res) => {
+  const query2 = `SELECT * FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1;`
+
+  db.any(query2, [
+    req.session.user.username
+])
+  .then(async (data) => {
+      console.log(data);
+      res.render('pages/travel', {
+      data : data,
+      username : req.session.user.user
+    });
+
+  })
+  .catch(function (err) {
+    res.send(err);
+  });
+});
+
+app.get('/clothing', (req, res) => {
+  res.render('pages/clothing');
 });

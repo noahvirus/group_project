@@ -2,12 +2,24 @@
 <%- include ('../partials/header') %> <%- include ('../partials/menu') %>
 
 <h1 align="center"> Travel Suggestions </h1>
-<div id="carouselOne" class="carousel slide" data-ride="carousel" action= "/travel" method="POST">
+<div id="carouselOne" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#carouselOne" data-slide-to="0" class="active"></li>
         <li data-target="#carouselOne" data-slide-to="1"></li>
         <li data-target="#carouselOne" data-slide-to="2"></li>
       </ol>
+      <% data.forEach(place => { %>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="..." alt="Slides">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>You have added <%-place.city%> as your favorite</h5>
+              <p>Here are some suggestions for cities</p>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img class="d-block w-100" src="..." alt="First slide">
