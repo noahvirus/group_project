@@ -1,0 +1,10 @@
+Features developed and implemented in week 1:
+
+* Developed directory structre
+* Made Database ERD
+* Built Database schema in sql files
+* Developed partials for all pages to keep website theme across pages 
+* Developed basic pages for all pages in the stories
+* Developed API calls to display pages
+* Developed API calls to register for a profile
+* Developed API call to login to exisiting profile

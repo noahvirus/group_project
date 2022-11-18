@@ -1,0 +1,15 @@
+Plan for week 3:
+
+We would like to finish:
+
+* Add button to add searched city to user's favorite
+    * write API to to implement this
+* Create sytle and CSS for the website 
+* Clothing needs to be finished
+    * Take a city and reccomend some clothing options
+* Finish the home page
+    * continue adding features like times for some locations, weather for some locations
+* Start testing features
+* add additional features as they present themselves
+
+* Create corresponding Board User Stories and update them correspondingly

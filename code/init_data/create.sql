@@ -3,8 +3,7 @@ CREATE TABLE IF NOT EXISTS users
 (
     userID SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
-    password VARCHAR(60) NOT NULL,
-    birthday DATE
+    password VARCHAR(60) NOT NULL
 );
 
 
@@ -20,6 +19,7 @@ CREATE TABLE IF NOT EXISTS locations
     humidity DECIMAL(3,2)
 );
 -- will create when I know what we need from a API call
+-- will then create 100 locations in a create.sql
 
 
 
@@ -30,5 +30,24 @@ CREATE TABLE IF NOT EXISTS usersToLocations
     userID INTEGER NOT NULL,
     locationID INTEGER NOT NULL,
     FOREIGN KEY (userID) REFERENCES users(userID) ON UPDATE CASCADE,
-    FOREIGN KEY (locationID) REFERENCES locations(locationID) ON UPDATE CASCADE,
+    FOREIGN KEY (locationID) REFERENCES locations(locationID) ON UPDATE CASCADE
+);
+
+
+
+CREATE TABLE IF NOT EXISTS cities
+(
+    cityID SERIAL PRIMARY KEY,
+    city VARCHAR(50) NOT NULL,
+    country VARCHAR(50) NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS usersToCities
+(
+    userToCitiesID SERIAL PRIMARY KEY,
+    userID INTEGER NOT NULL,
+    cityID INTEGER NOT NULL,
+    FOREIGN KEY (userID) REFERENCES users(userID) ON UPDATE CASCADE,
+    FOREIGN KEY (cityID) REFERENCES cities(cityID) ON UPDATE CASCADE
 );

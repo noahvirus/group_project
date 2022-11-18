@@ -1,0 +1,10 @@
+Plan for week 1:
+
+We would like to finish:
+
+* Building all ejs files for header, footer, navbar, and message partials
+* Build all HTML pages (login, register, profile, travel, clothing)
+* Design a database to hold location information and user information
+* Find and choose an API for weather information
+
+* Create corresponding Board User Stories and update them correspondingly

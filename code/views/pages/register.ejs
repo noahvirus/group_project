@@ -2,28 +2,28 @@
 <%- include ('../partials/header') %> <%- include ('../partials/menu') %>
 
 <main>
-  <div class="container-md">
+  <div class="container">
     <!-- THE REST OF YOUR HTML CODE GOES HERE -->
-    <form id="form" action = "/login" method="POST">
-      <style>
-        body {
-          background-image: url('https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/NL0L5N5Rgimkt8edi/videoblocks-a-heavy-rain-in-nature-wet-big-rocks_sasn-l6pv_thumbnail-1080_01.png');
-        }
-        a {color: brown;}
-        </style>
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="username" class="form-control" id="username" name="username">
-          </div>
-   
-        <div class="mb-3" id="password">
-          <label for="username" class="form-label">User Name</label>
-          <input type="text" class="form-control" id="username" name = "username">
-        </div>
+    <!-- Create Form -->
+    <h1>Register</h1>
+    <form id="form" action = "/register" method="POST">
+      <div class="mb-3">
+        <label for="useranme" class="form-label">Username</label>
+        <input type="username" class="form-control" id="username" name="username">
+      </div>
+ 
+      <div class="mb-3" id="password">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name = "password">
+      </div>
 
-        <button type="submit" class="btn btn-primary" onclick="add_user(usr,pwd)">Register</button>
-      </form>
-      <a href="./login">login to an existing Account</a>
+      <div style = "display:flex; justify-content: space-between;" >
+      <h6> Already have an account?</h6>
+      <a href = "/login" >Log in</a>
+      <button type="submit" class="btn btn-primary" >Register</button>
+      </div>
+    </form>
+
   </div>
 </main>
 
