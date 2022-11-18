@@ -100,9 +100,9 @@ app.get('/register', (req, res) => {
 });
 
 
-// app.get('/home', (req, res) => {
-//   res.render('pages/home');
-// });
+app.get('/home', (req, res) => {
+  res.render('pages/home');
+});
 
 const auth = (req, res, next) => {
   if (!req.session.user) {
@@ -112,11 +112,11 @@ const auth = (req, res, next) => {
   next();
   };
 
-app.get('/results?:location', (req, res) =>{ //unfinished
+app.get('/results?:location', (req, res) =>{
   // const location = req.body.location;
   const location = req.query.location;
   axios({
-     url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=${location}`,
+     url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${location}`,
         method: 'GET'
         // dataType:'json',
         // params: {
@@ -162,9 +162,7 @@ app.post('/register', async (req, res) => {
   .catch(function (err) {
       res.redirect('/register');
   });
-
 });
-
 
 app.get('/home', auth, (req,res) =>{
   console.log("here");
@@ -320,7 +318,6 @@ app.post('/discover/remove', (req, res) => {
 
 });
 
-
 app.get('/profile', (req, res) => {
   const query2 = `SELECT * FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1;`
 
@@ -357,6 +354,28 @@ app.get('/travel', (req, res) => {
   .catch(function (err) {
     res.send(err);
   });
+});
+
+app.get('/clothing?:place', (req, res) =>{
+  const place = req.query.place;
+  axios({
+     url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${place}`,
+        method: 'GET'
+        // dataType:'json',
+        // params: {
+        //     "key": req.session.user.api_key,
+        //     "q": title, //if these are relevant for our api
+        //     "days": 5,
+        // }
+     })
+     .then(results => {
+        console.log(results.data)
+        res.render("pages/clothing", {current: results.data}); //pass a parameter to store the values of the api call
+     })
+     .catch(error => {
+      console.log(error);
+      res.render("pages/home", {message: "API call failed"});
+     });
 });
 
 app.get('/clothing', (req, res) => {
