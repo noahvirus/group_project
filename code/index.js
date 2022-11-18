@@ -190,6 +190,27 @@ app.get('/home', auth, (req,res) =>{
         res.render('pages/login');
     })
 });
+
+// app.get('/clothing', auth, (req, res) => {
+//   res.render('pages/clothing');
+// });
+
+app.get('/clothing?:location', auth, (req, res) =>{
+  const location = req.query.location;
+  axios({
+    url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=${location}`,
+        method: 'GET'
+    })
+    .then(results => {
+        console.log(results.data); 
+        res.render("pages/clothing", {search: results.data}); //pass a parameter to store the values of the api call
+    })
+    .catch(error => {
+      console.log(error);
+      res.render("pages/home", {message: "API call failed"});
+    });
+
+});
     
 // Server setup
 app.listen(3000, function(req, res) {
