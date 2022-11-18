@@ -1,23 +1,23 @@
-var express = require('express'); 
-var app = express(); 
+var express = require('express');
+var app = express();
 const bodyParser = require('body-parser');
 const pgp = require('pg-promise')();
 const session = require('express-session'); // allow us to save a user's data when they're browsing the website
 const bcrypt = require('bcrypt'); // for use with username and password
 const axios = require('axios');
-    
-// Set EJS as templating engine 
-app.set('view engine', 'ejs'); 
+
+// Set EJS as templating engine
+app.set('view engine', 'ejs');
 
 const dbConfig = { // database connection string - must be made to connect to a database
   host: 'db', // Running in the db container on the docker setup
   port: 5432, // other ports that are commonly known are 80, 8080, 8000, ... etc. You can find these with your terminal
-  database: process.env.POSTGRES_DB, 
+  database: process.env.POSTGRES_DB,
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
 };
 
-//create db with 
+//create db with
 const db = pgp(dbConfig);
 
 app.set('view engine', 'ejs');
@@ -40,8 +40,8 @@ app.use(
 app.get('/', (req, res) =>{
   res.redirect('/login'); //this will call the /anotherRoute route in the API
 });
-  
-app.get("/login", function(req, res) {  
+
+app.get("/login", function(req, res) {
   res.render("pages/login");
 });
 
@@ -50,7 +50,7 @@ app.post('/login', async (req, res) => {
   //the logic goes here
   const hash = await bcrypt.hash(req.body.password, 10);
   // insert into the database
-  var query = `SELECT password,userID FROM users 
+  var query = `SELECT password,userID FROM users
   WHERE username = $1;`
   db.any(query, [
     req.body.username,
@@ -62,12 +62,12 @@ app.post('/login', async (req, res) => {
     //   const match = await bcrypt.compare(req.body.password, user.password);
     //   console.log("after hash")
 
-      .then(async (user) => {   
+      .then(async (user) => {
           if (user.length == 0) {
             // then there was no password for username and they need to register
             console.log("Username not registered")
             res.redirect('/register')
-          }     
+          }
           else {
           const match = await bcrypt.compare(req.body.password, user[0].password);
 
@@ -100,9 +100,9 @@ app.get('/register', (req, res) => {
 });
 
 
-// app.get('/home', (req, res) => {
-//   res.render('pages/home');
-// });
+app.get('/home', (req, res) => {
+  res.render('pages/home');
+});
 
 const auth = (req, res, next) => {
   if (!req.session.user) {
@@ -112,11 +112,11 @@ const auth = (req, res, next) => {
   next();
   };
 
-app.get('/results?:location', (req, res) =>{ //unfinished
+app.get('/results?:location', (req, res) =>{
   // const location = req.body.location;
   const location = req.query.location;
   axios({
-     url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=${location}`,
+     url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${location}`,
         method: 'GET'
         // dataType:'json',
         // params: {
@@ -126,7 +126,7 @@ app.get('/results?:location', (req, res) =>{ //unfinished
         // }
      })
      .then(results => {
-        console.log(results.data); 
+        console.log(results.data);
         res.render("pages/results", {search: results.data}); //pass a parameter to store the values of the api call
      })
      .catch(error => {
@@ -162,9 +162,7 @@ app.post('/register', async (req, res) => {
   .catch(function (err) {
       res.redirect('/register');
   });
-  
 });
-
 
 app.get('/home', auth, (req,res) =>{
   console.log("here");
@@ -236,7 +234,7 @@ app.get('/discover', (req, res) => {
             data : data,
             data2 : data2
           });
-  
+
         })
         .catch(function (err) {
           res.send(err);
@@ -277,12 +275,12 @@ app.post('/discover/add', (req, res) => {
               message: `Sucessfully added location`,
               data2 : data2
             });
-    
+
           })
           .catch(function (err) {
             res.send(err);
           });
-  
+
         })
         .catch(function (err) {
           res.send(err);
@@ -324,12 +322,12 @@ app.post('/discover/remove', (req, res) => {
               message: `Sucessfully removed location`,
               data2 : data2
             });
-    
+
           })
           .catch(function (err) {
             res.send(err);
           });
-  
+
         })
         .catch(function (err) {
           res.send(err);
@@ -340,7 +338,6 @@ app.post('/discover/remove', (req, res) => {
   });
 
 });
-
 
 app.get('/profile', (req, res) => {
   const query2 = `SELECT * FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1;`
@@ -359,4 +356,49 @@ app.get('/profile', (req, res) => {
   .catch(function (err) {
     res.send(err);
   });
+});
+
+app.get('/travel', (req, res) => {
+  const query2 = `SELECT * FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1;`
+
+  db.any(query2, [
+    req.session.user.username
+])
+  .then(async (data) => {
+      console.log(data);
+      res.render('pages/travel', {
+      data : data,
+      username : req.session.user.user
+    });
+
+  })
+  .catch(function (err) {
+    res.send(err);
+  });
+});
+
+app.get('/clothing?:place', (req, res) =>{
+  const place = req.query.place;
+  axios({
+     url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${place}`,
+        method: 'GET'
+        // dataType:'json',
+        // params: {
+        //     "key": req.session.user.api_key,
+        //     "q": title, //if these are relevant for our api
+        //     "days": 5,
+        // }
+     })
+     .then(results => {
+        console.log(results.data)
+        res.render("pages/clothing", {current: results.data}); //pass a parameter to store the values of the api call
+     })
+     .catch(error => {
+      console.log(error);
+      res.render("pages/home", {message: "API call failed"});
+     });
+});
+
+app.get('/clothing', (req, res) => {
+  res.render('pages/clothing');
 });
