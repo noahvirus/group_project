@@ -26,14 +26,8 @@
               <td><%=  search.current.wind_mph%> MPH</td>
               <td><%=  search.current.condition.text %></td>
               <td>
-                  <form action='' method= "POST">
-                    <input type='hidden' name ='favorite'>
-                    <button type='submit' name="color_selection" class="btn btn-block" style="background-color: cadetblue;">view</button>
-                  </form>
-              </td>
-              <td>
                   <form action='/clothing' method= "GET">
-                    <input type='hidden' name="location" id="location" value="<%-  search.location.name%>">
+                    <input type='hidden' name="results" id="results" value="<%-  search.location.name%>">
                     <button type='submit' class="btn btn-block" style="background-color: rgb(245, 172, 252);">Clothing</button>
                 </form>
             </td>

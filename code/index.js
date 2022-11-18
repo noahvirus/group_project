@@ -115,7 +115,7 @@ app.get('/results?:location', (req, res) =>{
   // const location = req.body.location;
   const location = req.query.location;
   axios({
-     url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=${location}`,
+     url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${location}`,
         method: 'GET'
         // dataType:'json',
         // params: {
@@ -296,7 +296,7 @@ app.post('/discover/remove', (req, res) => {
 app.get('/clothing?:place', (req, res) =>{
   const place = req.query.place;
   axios({
-     url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=${place}`,
+     url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${place}`,
         method: 'GET'
         // dataType:'json',
         // params: {
