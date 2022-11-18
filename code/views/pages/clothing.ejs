@@ -86,7 +86,7 @@ img {
         <div class="column">
             <div class="card">
                 <h3>Weather condition: <%= search.current.condition.text %></h3>
-                <img src="../../resources/weatherIcons/<%=dayOrNight%>/<%= (search.current.condition.icon).slice(-7)%>">
+                <p><img src="/resources/weatherIcons/<%=dayOrNight%>/<%= (search.current.condition.icon).slice(-7)%>"></p>
                 <p>Temperature: <%= search.current.temp_f %>º F</p>
                 <p>Some text</p>
             </div>

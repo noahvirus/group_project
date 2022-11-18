@@ -116,7 +116,7 @@ app.get('/results?:location', (req, res) =>{ //unfinished
   // const location = req.body.location;
   const location = req.query.location;
   axios({
-     url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=${location}`,
+     url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${location}`,
         method: 'GET'
         // dataType:'json',
         // params: {
@@ -169,7 +169,7 @@ app.post('/register', async (req, res) => {
 app.get('/home', auth, (req,res) =>{
   console.log("here");
   axios({
-        url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=London`,
+        url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=London`,
         method: 'GET'
         // data: {
         //     "key": req.session.user.api_key,
@@ -198,7 +198,7 @@ app.get('/home', auth, (req,res) =>{
 app.get('/clothing?:location', auth, (req, res) =>{
   const location = req.query.location;
   axios({
-    url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=${location}`,
+    url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${location}`,
         method: 'GET'
     })
     .then(results => {
