@@ -3,7 +3,10 @@
 
 <h1 align="center"> Travel Suggestions </h1>
 <% data.forEach(place => { %>
-  <div id="carouselOne" class="carousel slide" data-ride="carousel">
+  <h5>You have added <%-place.city%> as your favorite</h5>
+  <p>Here are some suggestions for cities</p>
+
+  <div id="carouselOne" class="carousel slide" data-ride="carousel" align='left'>
         <ol class="carousel-indicators">
           <li data-target="#carouselOne" data-slide-to="0" class="active"></li>
           <li data-target="#carouselOne" data-slide-to="1"></li>
@@ -23,9 +26,6 @@
           <span class="sr-only">Next</span>
         </a>
   </div>
-
-  <h5>You have added <%-place.city%> as your favorite</h5>
-  <p>Here are some suggestions for cities</p>
 
 <% }); %>
 
