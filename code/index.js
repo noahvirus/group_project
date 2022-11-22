@@ -381,3 +381,4 @@ app.get('/clothing?:place', (req, res) =>{
 app.get('/clothing', (req, res) => {
   res.render('pages/clothing');
 });
+
