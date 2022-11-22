@@ -5,6 +5,8 @@ const pgp = require('pg-promise')();
 const session = require('express-session'); // allow us to save a user's data when they're browsing the website
 const bcrypt = require('bcrypt'); // for use with username and password
 const axios = require('axios');
+const {useEffect} = require('react');
+const {useState} = require('react');
 
 // Set EJS as templating engine
 app.set('view engine', 'ejs');
@@ -45,7 +47,6 @@ app.get("/login", function(req, res) {
   res.render("pages/login");
 });
 
-
 app.post('/login', async (req, res) => {
   //the logic goes here
   const hash = await bcrypt.hash(req.body.password, 10);
@@ -55,12 +56,6 @@ app.post('/login', async (req, res) => {
   db.any(query, [
     req.body.username,
   ])
-    // .then((user)) {
-    //   console.log("before bcrypt")
-    //   console.log(req.body.password)
-    //   console.log(user.password)
-    //   const match = await bcrypt.compare(req.body.password, user.password);
-    //   console.log("after hash")
 
       .then(async (user) => {
           if (user.length == 0) {
@@ -93,16 +88,15 @@ app.post('/login', async (req, res) => {
       res.redirect('/login')
     });
 
-  });
+});
 
 app.get('/register', (req, res) => {
   res.render('pages/register');
 });
 
-
-app.get('/home', (req, res) => {
-  res.render('pages/home');
-});
+// app.get('/home', (req, res) => {
+//   res.render('pages/home');
+// });
 
 const auth = (req, res, next) => {
   if (!req.session.user) {
@@ -110,7 +104,7 @@ const auth = (req, res, next) => {
       res.redirect('/register');
   }
   next();
-  };
+};
 
 app.get('/results?:location', (req, res) =>{
   // const location = req.body.location;
@@ -118,12 +112,6 @@ app.get('/results?:location', (req, res) =>{
   axios({
      url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${location}`,
         method: 'GET'
-        // dataType:'json',
-        // params: {
-        //     "key": req.session.user.api_key,
-        //     "q": title, //if these are relevant for our api
-        //     "days": 5,
-        // }
      })
      .then(results => {
         console.log(results.data);
@@ -164,29 +152,19 @@ app.post('/register', async (req, res) => {
   });
 });
 
-app.get('/home', auth, (req,res) =>{
-  console.log("here");
-  axios({
-        url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=London`,
-        method: 'GET'
-        // data: {
-        //     "key": req.session.user.api_key,
-        //     "q": "London",
-        //     "days": 4,
-        //     "aqi": "no"
-        // }
-    })
-    .then(results => {
-       // the results will be displayed on the terminal if the docker containers are running
-        res.render('pages/home',{
-            current: results.data.current
-        });
-    })
-    .catch(error => {
-    // Handle errors
-        console.log("Error", error);
-        res.render('pages/login');
-    })
+app.get('/home', async (req,res) =>{
+
+  const location = ['Tokyo', 'New York', 'Paris', 'Beijing', 'London'];
+  var cities = [];
+
+  for(let i = 0; i < 5; i++) {
+    let url = `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${location[i]}`;
+    let response = await axios.get(url);
+    cities.push(response);
+  }
+
+  res.render('pages/home', {search: cities});
+
 });
 
 // Server setup
@@ -270,7 +248,6 @@ app.post('/discover/add', (req, res) => {
   });
 
 });
-
 
 app.post('/discover/remove', (req, res) => {
   console.log('added');
