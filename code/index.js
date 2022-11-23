@@ -167,7 +167,7 @@ app.post('/register', async (req, res) => {
 app.get('/home', auth, (req,res) =>{
   console.log("here");
   axios({
-        url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=London`,
+        url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=London`,
         method: 'GET'
         // data: {
         //     "key": req.session.user.api_key,
@@ -193,10 +193,10 @@ app.get('/home', auth, (req,res) =>{
 //   res.render('pages/clothing');
 // });
 
-app.get('/clothing?:location', auth, (req, res) =>{
-  const location = req.query.location;
+app.get('/clothing?:place', (req, res) =>{
+  const place = req.query.place;
   axios({
-    url: `http://api.weatherapi.com/v1/current.json?key=ba73658ff1f342cdb37182250220411&q=${location}`,
+    url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${place}`,
         method: 'GET'
     })
     .then(results => {

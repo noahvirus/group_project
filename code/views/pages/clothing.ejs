@@ -57,10 +57,11 @@ img {
     <% var snowJacket = 'https://images.boardriders.com/globalGrey/quiksilver-products/all/default/large/eqytj03266_quiksilver,w_bpcw_frt1.jpg' %>
     <% var rainJacket = 'https://cdn.shopify.com/s/files/1/1811/1477/products/A6_Rain_Jacket_Coyote_Front_WEB.jpg?v=1582164836' %>
     <% var lightJacket = 'https://cdn.shopify.com/s/files/1/0055/1242/products/EXP54LWZC-CNV_55d6ceb3-6996-43be-99be-196331c4ad0e_2048x.jpg?v=1574111422' %>
-    <% var fleece = 'https://cdni.llbean.net/is/image/wim/504674_1704_41?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/A0211793_2' %>
+    <% var tShirt = 'https://imgs.michaels.com/MAM/assets/1/5E3C12034D34434F8A9BAAFDDF0F8E1B/img/4A6C11A35D1249A7AC437B6CCD831B99/M10093625_5.jpg?fit=inside|540:540' %>
     <% var pants = 'https://mobile.yoox.com/images/items/13/13721518XP_14_r.jpg?impolicy=crop&width=387&height=490' %>
     <% var shorts = 'https://lp2.hm.com/hmgoepprod?set=format%5Bwebp%5D%2Cquality%5B79%5D%2Csource%5B%2Fd9%2Fbb%2Fd9bbeb60f6e081034f7f935e62ef24697ebc07a1.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5B%5D%2Ctype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B2%5D&call=url%5Bfile%3A%2Fproduct%2Fmain%5D' %>
     <% var snowBoots = 'https://www.rei.com/media/a63b8bf7-9f56-4807-bbc1-3d5a8b820c92?size=784x588' %>
+    <% var rainBoots = 'https://i5.walmartimages.com/asr/468d805d-4c45-48f7-a7ba-8667436c04f3.22e2b2938e899c5369dcd39a50b8e306.jpeg' %>
     <% var shoes = 'https://assets.hermes.com/is/image/hermesproduct/quicker-sneaker--102190ZH09-worn-1-0-0-800-800_b.jpg' %>
     <% var birks = 'https://www.birkenstock.com/on/demandware.static/-/Sites-master-catalog/default/dw1c14c58a/151183/151183.jpg' %>
     <% var condition = search.current.condition.code %>
@@ -74,21 +75,39 @@ img {
     <div class="row" >
         <div class="column">
             <div class="card">
-                <h3>Clothing Photos:</h3>
-                <% if(condition == 1066 || condition ==  1117 || condition >= 1198 && condition <= 1225 || condition == 1279 || condition == 1282){ %>
-                    <image src='<%=snowJacket%>'>
+                <h3>Clothing:</h3>
+                <% if(condition == 1066 || condition ==  1117 || condition >= 1198 && condition <= 1225 || condition == 1279 || condition == 1282){ %> 
+                    <image src='<%=snowJacket%>'>Snow Jacket</image>
+                    <image src="<%=snowBoots%>">Snow Boots</image>
+                <% } else if(condition == 1063 || condition == 1069 || condition == 1072 || condition >= 1150 && condition < 1198 || condition == 1240 || condition == 1243 || condition == 1246 ){ %>
+                    <image src="<%=rainJacket%>">Rain Jacket</image>
+                    <image src="<%=rainBoots%>">Rain Boots</image>
+                <% } else if(condition == 1000 || condition == 1003 || condition == 1006 || condition == 1009 || condition == 1030 || condition == 1135){ %>
+                    <% if(search.current.temp_f >= 60){ %>
+                        <image src="<%=tShirt%>">T-Shirt</image>
+                        <image src="<%=shorts%>">Shorts</image>
+                        <image src="<%=birks%>">Slides</image>
+                    <% }else if(search.current.temp_f >= 40){ %>
+                        <image src="<%=lightJacket%>">Light Jacket</image>
+                        <image src="<%=pants%>">Pants</image>
+                        <image src="<%=shoes%>">Shoes</image>
+                    <% }else{ %>
+                        <image src="<%=snowJacket%>">Heavy Jacket</image>
+                        <image src="<%=shoes%>">Shoes</image>
+                    <% } %>
                 <% } %>
-                <p>Photo of lower body + Shoes</p>
-                <p>Photo of Accessory</p>
             </div>
         </div>
         
         <div class="column">
             <div class="card">
                 <h3>Weather condition: <%= search.current.condition.text %></h3>
-                <img src="../../resources/weatherIcons/<%=dayOrNight%>/<%= (search.current.condition.icon).slice(-7)%>">
-                <p>Temperature: <%= search.current.temp_f %>º F</p>
-                <p>Some text</p>
+                <% var icon = search.current.condition.icon %>
+                <% icon.slice(2) %>
+                <img src="<%=icon%>" style="height: 100px">
+                <h4>Temperature: <%= search.current.temp_f %>º F</h4>
+                <h4>Feels Like: <%= search.current.feelslike_f %>º F</h4>
+                <h4>Wind Gusts: <%= search.current.gust_mph %> mph</h4>
             </div>
         </div>
     </div>
