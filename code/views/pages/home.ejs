@@ -2,29 +2,86 @@
 <%- include ('../partials/header') %> <%- include ('../partials/menu') %>
 
 <main>
+  <script type="module" src="index.js"></script>
+
     <div class="container">
       <!-- THE REST OF YOUR HTML CODE GOES HERE -->
       <form action="/results" method="GET"> 
         <input type="search" id="location" name="location" placeholder="Search...">
         <button>Search</button>
       </form>
-      <table class="table" id = "CLASSTABLE">
-          <thead>
-            <tr>
-              <th scope="col">City</th>
-              <th scope="col">High</th>
-              <th scope="col">Low</th>
-              <th scope="col">Humidity</th>
-              <th scope="col">Local Time</th>                            
-            </tr>
-          </thead>
-          <tbody>
 
-  
-              </tbody>
-            </table>
+      <div class="card-group mt-5 mb-2">
+
+        <div class="card">
+          <img src="https://wallpaperaccess.com/full/31121.jpg" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Tokyo</h5>
+            <p class="card-text">Local Time: <%=  search[0].data.location.localtime%></p>
+            <p class="card-text">Temperature (f): <%=  search[0].data.current.temp_f%>º</p>
+            <p class="card-text">Humidity: <%=  search[0].data.current.humidity%></p>
+            <p class="card-text">Wind Speed: <%=  search[0].data.current.wind_mph%> MPH</p>
+            <p class="card-text">Condition: <%=  search[0].data.current.condition.text %></p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
         </div>
-      </main>
+
+        <div class="card">
+          <img src="https://wallpaperaccess.com/full/123346.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">New York</h5>
+            <p class="card-text">Local Time: <%=  search[1].data.location.localtime%></p>
+            <p class="card-text">Temperature (f): <%=  search[1].data.current.temp_f%>º</p>
+            <p class="card-text">Humidity: <%=  search[1].data.current.humidity%></p>
+            <p class="card-text">Wind Speed: <%=  search[1].data.current.wind_mph%> MPH</p>
+            <p class="card-text">Condition: <%=  search[1].data.current.condition.text %></p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="https://wallpaperaccess.com/full/1137473.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Paris</h5>
+            <p class="card-text">Local Time: <%=  search[2].data.location.localtime%></p>
+            <p class="card-text">Temperature (f): <%=  search[2].data.current.temp_f%>º</p>
+            <p class="card-text">Humidity: <%=  search[2].data.current.humidity%></p>
+            <p class="card-text">Wind Speed: <%=  search[2].data.current.wind_mph%> MPH</p>
+            <p class="card-text">Condition: <%=  search[2].data.current.condition.text %></p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="https://www.10wallpaper.com/wallpaper/1920x1080/1506/guomao_beijing_china-Cities_HD_Wallpaper_1920x1080.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Beijing</h5>
+            <p class="card-text">Local Time: <%=  search[3].data.location.localtime%></p>
+            <p class="card-text">Temperature (f): <%=  search[3].data.current.temp_f%>º</p>
+            <p class="card-text">Humidity: <%=  search[3].data.current.humidity%></p>
+            <p class="card-text">Wind Speed: <%=  search[3].data.current.wind_mph%> MPH</p>
+            <p class="card-text">Condition: <%=  search[3].data.current.condition.text %></p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="https://wallpapercave.com/wp/wp2981069.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">London</h5>
+            <p class="card-text">Local Time: <%=  search[4].data.location.localtime%></p>
+            <p class="card-text">Temperature (f): <%=  search[4].data.current.temp_f%>º</p>
+            <p class="card-text">Humidity: <%=  search[4].data.current.humidity%></p>
+            <p class="card-text">Wind Speed: <%=  search[4].data.current.wind_mph%> MPH</p>
+            <p class="card-text">Condition: <%=  search[4].data.current.condition.text %></p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+</main>
 
 
 
