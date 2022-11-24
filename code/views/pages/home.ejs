@@ -1,5 +1,11 @@
 <div class="col"><%- include ('../partials/message') %></div>
-<%- include ('../partials/header') %> <%- include ('../partials/menu') %>
+<%- include ('../partials/header') %> 
+<% console.log(!session.user); %>
+<% if (!session.user){ %>
+<%- include ('../partials/menu') %>
+<% } else { %>
+<%- include ('../partials/menu_logout') %>
+<% } %>
 
 <main>
   <script type="module" src="index.js"></script>
