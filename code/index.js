@@ -61,7 +61,9 @@ app.post('/login', async (req, res) => {
           if (user.length == 0) {
             // then there was no password for username and they need to register
             console.log("Username not registered")
-            res.redirect('/register')
+            res.render("pages/register", {
+              message: "Username not registered"
+            });
           }
           else {
           const match = await bcrypt.compare(req.body.password, user[0].password);
@@ -78,14 +80,18 @@ app.post('/login', async (req, res) => {
       }
       else {
         console.log("Incorrect Username or Password")
-        res.redirect('/login')
+        res.render("pages/login", {
+          message: "Incorrect Username or Password"
+        });
       }
           }
     })
     .catch(function (err) {
       res.send(err);
       console.log("Login Post method errored")
-      res.redirect('/login')
+      res.render("pages/register", {
+        message: "Login errored. Please Try again"
+      });
     });
 
 });
@@ -145,10 +151,14 @@ app.post('/register', async (req, res) => {
       hash
   ])
   .then(function (data) {
-      res.redirect('/login');
+    res.render("pages/login", {
+      message: "Account Sucessfully Created"
+    });
   })
   .catch(function (err) {
-      res.redirect('/register');
+      res.render("pages/register", {
+        message: "Something went Wrong. Please try Again"
+      });
   });
 });
 
@@ -301,7 +311,9 @@ app.post('/discover/remove', (req, res) => {
 const authenticate = (req, res) => {
   if (!req.session.user) {
       // Default to register page.
-      res.redirect('/login');
+      res.render("pages/login", {
+        message: "Must Login to use this Feature"
+      });
       return false;
   }
   return true;
