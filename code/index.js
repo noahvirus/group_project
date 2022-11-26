@@ -107,20 +107,67 @@ const auth = (req, res, next) => {
 };
 
 app.get('/results?:location', (req, res) =>{
-  // const location = req.body.location;
   const location = req.query.location;
   axios({
      url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${location}`,
         method: 'GET'
      })
-     .then(results => {
-        console.log(results.data);
-        res.render("pages/results", {search: results.data}); //pass a parameter to store the values of the api call
-     })
-     .catch(error => {
-      console.log(error);
+    .then(results => {
+      const query = 'Select * FROM cities WHERE city = $1;';
+      db.any(query, [location])
+      .then(async (data1) => {
+        console.log(data1);
+        if(data1.length < 1){
+          const query1 = 'INSERT into cities (city, country) values ($1, $2);';
+          db.any(query1, [location, results.data.location.country])
+          .then(async (data2) => {
+            //const query = 'SELECT * FROM cities WHERE cityID = (SELECT cityID FROM usersToCities where userID = $1);';
+            const query2 = 'Select * FROM cities WHERE city = $1;';
+            const query3 = `SELECT c.cityID, c.city, c.country FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1 `;
+            db.any(query2)
+            .then(async (data3) => {
+              db.any(query3, [req.session.user.username])
+              .then(async (data4) => {
+                  console.log(data4);
+                  res.render("pages/results", {search: results.data, data : data3, data2 : data4});
+              })
+               .catch(error => {
+                console.log(error);
+                res.render("pages/home", {message: "Database failure"});
+               });
+            })
+             .catch(error => {
+              console.log(error);
+              res.render("pages/home", {message: "Database failure"});
+             }); 
+           })
+           .catch(error => {
+            console.log(error);
+            res.render("pages/home", {message: "Could not insert"});
+           });
+        }
+        else{
+          const query3 = `SELECT c.cityID, c.city, c.country FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1 `;
+          db.any(query3, [req.session.user.username])
+          .then(async (data4) => {
+              console.log(data4);
+              res.render("pages/results", {search: results.data, data : data1, data2 : data4});
+          })
+           .catch(error => {
+            console.log(error);
+            res.render("pages/home", {message: "Database failure"});
+           });
+        }
+      })
+      .catch(err=>{
+        console.log(err);
+        res.render("pages/home", {message: "City not in database"});
+      })
+    })
+    .catch(err=>{
+      console.log(err);
       res.render("pages/home", {message: "API call failed"});
-     });
+    })
 });
 
 app.get('/results', (req, res) => {
@@ -357,4 +404,42 @@ app.get('/clothing?:place', (req, res) =>{
 
 app.get('/clothing', (req, res) => {
   res.render('pages/clothing');
+});
+
+
+app.post('/results/add', (req, res) => {
+  const query = 'Select * FROM cities WHERE city = $1;';
+  db.any(query, [req.body.city])
+  .then(async (data) => {
+    console.log(data);
+    const query1 = 'INSERT into usersToCities (userID, cityID) values ($1, $2) returning *;';
+    db.any(query1, [req.session.user.username, data[0].cityid])
+    .then(async (data2) => {
+      res.redirect("/profile");
+    })
+    .catch(function (err) {
+      console.log(err);
+      console.log("second");
+      res.redirect('/home');
+    });
+  })
+  .catch(function (err) {
+    console.log(err);
+    console.log("first");
+    res.redirect('/home');
+  });
+});
+
+
+app.post('/results/remove', (req, res) => {
+  console.log('removed');
+  const query = 'DELETE FROM usersToCities WHERE userID = $1 AND cityID = $2;';
+    db.any(query, [req.session.user.username, req.body.cityid])
+    .then(function (data) {
+        res.redirect("/profile");
+    })
+    .catch(function (err) {
+        res.redirect('/register');
+    });
+
 });

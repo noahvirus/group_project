@@ -7,6 +7,7 @@
     <form action="/results" method="GET"> 
       <input type="search" id="location" name="location" placeholder="Search...">
       <button>Search</button>
+    </form>
     <table class="table">
       <thead>
           <th>City</th>
@@ -26,8 +27,27 @@
               <td><%=  search.current.wind_mph%> MPH</td>
               <td><%=  search.current.condition.text %></td>
               <td>
+                <% let test = false %>
+                <% data2.forEach(fav => {
+                  if (fav.cityid == data[0].cityid) {
+                    test = true;
+                  }
+                }); %>
+                <% if (test == true) { %>
+                  <form id="form" action = "/results/remove" method="POST">
+                    <input type="hidden" id = "cityid" name="cityid" value="<%- data[0].cityid %>">
+                    <button type="submit" class="btn btn-outline-danger">Remove</button>
+                  </form>
+                  <% } else {%>
+                    <form id="form" action = "/results/add" method="POST">
+                      <input type="hidden" id = "city" name="city" value="<%- search.location.name %>">
+                      <button type="submit" class="btn btn-outline-success">Favorite</button>
+                    </form>
+                    <% } %>
+              </td>
+              <td>
                   <form action='/clothing' method= "GET">
-                    <input type='hidden' name="results" id="results" value="<%-  search.location.name%>">
+                    <input type='hidden' name="place" id="place" value="<%-  search.location.name%>">
                     <button type='submit' class="btn btn-block" style="background-color: rgb(245, 172, 252);">Clothing</button>
                 </form>
             </td>
