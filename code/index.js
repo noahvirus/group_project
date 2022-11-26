@@ -61,7 +61,9 @@ app.post('/login', async (req, res) => {
           if (user.length == 0) {
             // then there was no password for username and they need to register
             console.log("Username not registered")
-            res.redirect('/register')
+            res.render("pages/register", {
+              message: "Username not registered"
+            });
           }
           else {
           const match = await bcrypt.compare(req.body.password, user[0].password);
@@ -78,14 +80,18 @@ app.post('/login', async (req, res) => {
       }
       else {
         console.log("Incorrect Username or Password")
-        res.redirect('/login')
+        res.render("pages/login", {
+          message: "Incorrect Username or Password"
+        });
       }
           }
     })
     .catch(function (err) {
       res.send(err);
       console.log("Login Post method errored")
-      res.redirect('/login')
+      res.render("pages/register", {
+        message: "Login errored. Please Try again"
+      });
     });
 
 });
@@ -98,12 +104,12 @@ app.get('/register', (req, res) => {
 //   res.render('pages/home');
 // });
 
-const auth = (req, res, next) => {
+const auth = (req) => {
   if (!req.session.user) {
       // Default to register page.
-      res.redirect('/register');
+      return true;
   }
-  next();
+  return false;
 };
 
 app.get('/results?:location', (req, res) =>{
@@ -192,10 +198,14 @@ app.post('/register', async (req, res) => {
       hash
   ])
   .then(function (data) {
-      res.redirect('/login');
+    res.render("pages/login", {
+      message: "Account Sucessfully Created"
+    });
   })
   .catch(function (err) {
-      res.redirect('/register');
+      res.render("pages/register", {
+        message: "Something went Wrong. Please try Again"
+      });
   });
 });
 
@@ -210,7 +220,7 @@ app.get('/home', async (req,res) =>{
     cities.push(response);
   }
 
-  res.render('pages/home', {search: cities});
+  res.render('pages/home', {search: cities, session: req.session});
 
 });
 
@@ -220,6 +230,8 @@ app.listen(3000, function(req, res) {
 });
 
 app.get('/discover', (req, res) => {
+
+  if (authenticate(req, res)) {
   const query = 'SELECT * FROM cities;';
 
   // const query = `SELECT * FROM usersToCities INNER JOIN cities USING (cityID) WHERE userID = ${req.session.user.username};`
@@ -248,14 +260,15 @@ app.get('/discover', (req, res) => {
       .catch(function (err) {
         res.send(err);
       });
+    }
 });
 
 app.post('/discover/add', (req, res) => {
-  console.log('added');
+  //console.log('added');
   const query = 'INSERT into usersToCities (userID, cityID) values ($1, $2) returning *;';
 
-  console.log(req.session.user.username);
-  console.log(req.body);
+  //console.log(req.session.user.username);
+  //console.log(req.body);
 
     db.any(query, [
       req.session.user.username,
@@ -297,11 +310,11 @@ app.post('/discover/add', (req, res) => {
 });
 
 app.post('/discover/remove', (req, res) => {
-  console.log('added');
+  //console.log('added');
   const query = 'DELETE FROM usersToCities WHERE userID = $1 AND cityID = $2;';
 
-  console.log(req.session.user.username);
-  console.log(req.body);
+  //console.log(req.session.user.username);
+  //console.log(req.body);
 
     db.any(query, [
       req.session.user.username,
@@ -342,7 +355,20 @@ app.post('/discover/remove', (req, res) => {
 
 });
 
+const authenticate = (req, res) => {
+  if (!req.session.user) {
+      // Default to register page.
+      res.render("pages/login", {
+        message: "Must Login to use this Feature"
+      });
+      return false;
+  }
+  return true;
+};
+
 app.get('/profile', (req, res) => {
+
+  if (authenticate(req, res)) {
   const query2 = `SELECT * FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1;`
 
   db.any(query2, [
@@ -359,9 +385,12 @@ app.get('/profile', (req, res) => {
   .catch(function (err) {
     res.send(err);
   });
+}
 });
 
 app.get('/travel', (req, res) => {
+
+  if (authenticate(req, res)) {
   const query2 = `SELECT * FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1;`
 
   db.any(query2, [
@@ -378,6 +407,7 @@ app.get('/travel', (req, res) => {
   .catch(function (err) {
     res.send(err);
   });
+}
 });
 
 app.get('/clothing?:place', (req, res) =>{
