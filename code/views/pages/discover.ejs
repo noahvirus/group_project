@@ -1,5 +1,6 @@
 <div class="col"><%- include ('../partials/message') %></div>
-<%- include ('../partials/header') %> <%- include ('../partials/menu') %>
+<%- include ('../partials/header') %> 
+<%- include ('../partials/menu_logout') %>
 
 <main>
     <div class="container">
@@ -7,6 +8,7 @@
       <form action="/results" method="GET"> 
         <input type="search" id="location" name="location" placeholder="Search...">
         <button>Search</button>
+      </form>
       <table class="table" id = "CLASSTABLE">
           <thead>
             <tr>
