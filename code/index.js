@@ -135,7 +135,7 @@ app.get('/results?:location', (req, res) =>{
               db.any(query3, [req.session.user.username])
               .then(async (data4) => {
                   console.log(data4);
-                  res.render("pages/results", {search: results.data, data : data3, data2 : data4});
+                  res.render("pages/results", {search: results.data, data : data3, data2 : data4, session: req.session});
               })
                .catch(error => {
                 console.log(error);
@@ -157,7 +157,7 @@ app.get('/results?:location', (req, res) =>{
           db.any(query3, [req.session.user.username])
           .then(async (data4) => {
               console.log(data4);
-              res.render("pages/results", {search: results.data, data : data1, data2 : data4});
+              res.render("pages/results", {search: results.data, data : data1, data2 : data4, session: req.session});
           })
            .catch(error => {
             console.log(error);
