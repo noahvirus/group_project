@@ -209,6 +209,7 @@ app.post('/register', async (req, res) => {
   });
 });
 
+
 app.get('/home', async (req,res) =>{
 
   const location = ['Tokyo', 'New York', 'Paris', 'Beijing', 'London'];
@@ -224,6 +225,27 @@ app.get('/home', async (req,res) =>{
 
 });
 
+// app.get('/clothing', auth, (req, res) => {
+//   res.render('pages/clothing');
+// });
+
+app.get('/clothing?:place', (req, res) =>{
+  const place = req.query.place;
+  axios({
+    url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${place}`,
+        method: 'GET'
+    })
+    .then(results => {
+        console.log(results.data); 
+        res.render("pages/clothing", {search: results.data}); //pass a parameter to store the values of the api call
+    })
+    .catch(error => {
+      console.log(error);
+      res.render("pages/home", {message: "API call failed"});
+    });
+
+});
+    
 // Server setup
 app.listen(3000, function(req, res) {
   console.log("Connected on port:3000");
