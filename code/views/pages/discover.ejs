@@ -3,6 +3,7 @@
 <%- include ('../partials/menu_logout') %>
 
 <main>
+  <h1 style="text-align: center">Popular Cities to Explore</h1>
     <div class="container">
       <!-- THE REST OF YOUR HTML CODE GOES HERE -->
       <form action="/results" method="GET"> 
@@ -15,7 +16,8 @@
               <th scope="col">City</th>
               <th scope="col">Country</th>
               <th scope="col">Favorite</th>
-              <th scope="col">Weather</th>                            
+              <th scope="col">Weather</th>     
+              <th scope="col">Clothing Suggestions</th>                        
             </tr>
           </thead>
           <tbody>
@@ -47,6 +49,13 @@
                     
                   </th>
                   </form>
+                  <form id="form" action = "/clothing" method="GET">
+                    <input type="hidden" id = "place" name="place" value="<%- place.city %>">
+                  <th> 
+                    <button type='submit' class="btn btn-outline-info">Clothing</button>
+                    
+                  </th>
+                  </form>
                   </tr>
     
                 
@@ -67,6 +76,14 @@
                       <input type="hidden" id = "location" name="location" value="<%- place.city %>">
                     <th> 
                       <button type="submit" class="btn btn-outline-dark">Weather</button>
+                      
+                    </th>
+                    </form>
+
+                    <form id="form" action = "/clothing" method="GET">
+                      <input type="hidden" id = "place" name="place" value="<%- place.city %>">
+                    <th> 
+                      <button type='submit' class="btn btn-outline-info">Clothing</button>
                       
                     </th>
                     </form>
