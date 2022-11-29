@@ -62,7 +62,8 @@ app.post('/login', async (req, res) => {
             // then there was no password for username and they need to register
             console.log("Username not registered")
             res.render("pages/register", {
-              message: "Username not registered"
+              message: "Username not registered",
+              error: "error"
             });
           }
           else {
@@ -81,7 +82,8 @@ app.post('/login', async (req, res) => {
       else {
         console.log("Incorrect Username or Password")
         res.render("pages/login", {
-          message: "Incorrect Username or Password"
+          message: "Incorrect Username or Password",
+          error: "error"
         });
       }
           }
@@ -90,7 +92,8 @@ app.post('/login', async (req, res) => {
       res.send(err);
       console.log("Login Post method errored")
       res.render("pages/register", {
-        message: "Login errored. Please Try again"
+        message: "Login errored. Please Try again",
+        error: "error"
       });
     });
 
@@ -135,21 +138,21 @@ app.get('/results?:location', (req, res) =>{
               db.any(query3, [req.session.user.username])
               .then(async (data4) => {
                   console.log(data4);
-                  res.render("pages/results", {search: results.data, data : data3, data2 : data4});
+                  res.render("pages/results", {search: results.data, data : data3, data2 : data4, session: req.session});
               })
                .catch(error => {
                 console.log(error);
-                res.render("pages/home", {message: "Database failure"});
+                res.render("pages/error", {message: "Database failure", session: req.session, error: "error"});
                });
             })
              .catch(error => {
               console.log(error);
-              res.render("pages/home", {message: "Database failure"});
+              res.render("pages/error", {message: "Database failure", session: req.session, error: "error"});
              }); 
            })
            .catch(error => {
             console.log(error);
-            res.render("pages/home", {message: "Could not insert"});
+            res.render("pages/error", {message: "Could not insert", session: req.session, error: "error"});
            });
         }
         else{
@@ -157,28 +160,28 @@ app.get('/results?:location', (req, res) =>{
           db.any(query3, [req.session.user.username])
           .then(async (data4) => {
               console.log(data4);
-              res.render("pages/results", {search: results.data, data : data1, data2 : data4});
+              res.render("pages/results", {search: results.data, data : data1, data2 : data4, session: req.session});
           })
            .catch(error => {
             console.log(error);
-            res.render("pages/home", {message: "Database failure"});
+            res.render("pages/error", {message: "Database failure", session: req.session, error: "error"});
            });
         }
       })
       .catch(err=>{
         console.log(err);
-        res.render("pages/home", {message: "City not in database"});
+        res.render("pages/error", {message: "City not in database", session: req.session, error: "error"});
       })
     })
     .catch(err=>{
       console.log(err);
-      res.render("pages/home", {message: "API call failed"});
+      res.render("pages/error", {message: "API call failed", session: req.session, error: "error"});
     })
 });
 
-app.get('/results', (req, res) => {
-  res.render('pages/results');
-});
+// app.get('/results', (req, res) => {
+//   res.render('pages/results');
+// });
 
 app.get('/logout', (req, res) => {
   req.session.destroy();
@@ -204,7 +207,8 @@ app.post('/register', async (req, res) => {
   })
   .catch(function (err) {
       res.render("pages/register", {
-        message: "Something went Wrong. Please try Again"
+        message: "Something went Wrong. Please try Again",
+        error: "error"
       });
   });
 });
@@ -381,7 +385,8 @@ const authenticate = (req, res) => {
   if (!req.session.user) {
       // Default to register page.
       res.render("pages/login", {
-        message: "Must Login to use this Feature"
+        message: "Must Log in to use this Feature",
+        error: "error"
       });
       return false;
   }

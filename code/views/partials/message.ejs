@@ -1,7 +1,23 @@
 <% if (locals.message) { %>
+  <% if (locals.error) { %>
+  <div
+    class="alert alert-danger"
+    role="alert"
+
+    
+    
+  >
+    <%= message %>
+  </div>
+  <% } else { %>
     <div
-      class="alert alert-<%- locals.error ? 'danger' : 'success' %>"
-      role="alert">
-      <%= message %>
-    </div>
+    class="alert alert-success"
+    role="alert"
+
+    
+    
+  >
+    <%= message %>
+  </div>
     <% } %>
+  <% } %>
