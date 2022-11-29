@@ -22,7 +22,10 @@ UPDATE AS WE DEVELOP THE APP
 
 # Instructions on how to Run the Application Locally:
 
-UPDATE AS WE DEVELOP THE APP
+* cd into code directory
+* run "rm -rf node_modules" command
+* run "docker-compose up" to construct docker container
+* run "docker-compose down" to being container down (add -v flag tp destory database contents)
 
 # How to run the Tests:
 
