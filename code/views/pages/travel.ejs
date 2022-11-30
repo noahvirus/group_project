@@ -1,35 +1,35 @@
 <div class="col"><%- include ('../partials/message') %></div>
-<%- include ('../partials/header') %> 
+<%- include ('../partials/header') %>
 <%- include ('../partials/menu_logout') %>
 
-<h1 align="center"> Travel Suggestions </h1>
-<% data.forEach(place => { %>
-  <h5>You have added <%-place.city%> as your favorite</h5>
-  <p>Here are some suggestions for cities</p>
 
-  <div id="carouselOne" class="carousel slide" data-ride="carousel" align='left'>
-        <ol class="carousel-indicators">
-          <li data-target="#carouselOne" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselOne" data-slide-to="1"></li>
-          <li data-target="#carouselOne" data-slide-to="2"></li>
-        </ol>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img class="d-block w-100" src="code/images/tokyo.jpg" alt="Slides">
-            </div>
-          </div>
-        <a class="carousel-control-prev" href="#carouselOne" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselOne" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
+<main>
+  <% var lines = "" %>
+  <h1 align="center"> Travel Suggestions </h1>
+  <div class="" align='center'>
+    <h5> You have added <h5>
+    <% data.forEach(place => { %>
+      <% for (i = 1; i<= 1; i++) { %>
+         <%-place.city%>
+     <% } %>
+    <% }); %>
+    <h5> as favorites </h5>
   </div>
 
-<% }); %>
+  <h4 align='center'>Here are some suggestions for cities to visit:</h4>
+  <% data.forEach(place => { %>
+  <form id="form" align='center' action = "/travel/add" method="POST">
+    <!-- Configure how to add in other cities -->
+    <tr>
+      <th> <%-place.country%></th>
+      <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityid %>">
+      <th>
+          <button type="submit" class="btn btn-outline-success">Favorite</button>
 
+      </th>
 
+    </form>
+    <% }); %>
+</main>
 
 <%- include ('../partials/footer') %>
