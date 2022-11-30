@@ -145,7 +145,7 @@ app.get('/results?:location', (req, res) =>{
              .catch(error => {
               console.log(error);
               res.render("pages/home", {message: "Database failure"});
-             }); 
+             });
            })
            .catch(error => {
             console.log(error);
@@ -236,7 +236,7 @@ app.get('/clothing?:place', (req, res) =>{
         method: 'GET'
     })
     .then(results => {
-        console.log(results.data); 
+        console.log(results.data);
         res.render("pages/clothing", {search: results.data}); //pass a parameter to store the values of the api call
     })
     .catch(error => {
@@ -245,7 +245,7 @@ app.get('/clothing?:place', (req, res) =>{
     });
 
 });
-    
+
 // Server setup
 app.listen(3000, function(req, res) {
   console.log("Connected on port:3000");
