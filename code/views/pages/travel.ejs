@@ -2,13 +2,7 @@
 <%- include ('../partials/header') %>
 <%- include ('../partials/menu_logout') %>
 
-<h1 align="center"> Travel Suggestions </h1>
-<% data.forEach(place => { %>
-  <h5>You have added <%-place.city%> as your favorite</h5>
 
-  <div id="carouselOne" class="carousel slide" data-ride="carousel" align='left'>
-        <ol class="carousel-indicators">
-          <li data-target="#carouselOne" data-slide-to="1"></li>
 <main>
   <h1 align="center"> Travel Suggestions </h1>
   <% data.forEach(place => { %>
@@ -36,6 +30,9 @@
           </a>
     </div>
     <% if %>
+    <div class="">
+
+    </div>
 
   <% }); %>
 </main>
