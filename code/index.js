@@ -500,3 +500,172 @@ app.post('/results/remove', (req, res) => {
     });
 
 });
+
+app.get('/travel?:place', (req, res) =>{
+  const place = req.query.place;
+  axios({
+    url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${place}`,
+        method: 'GET'
+    })
+    .then(results => {
+        console.log(results.data);
+        res.render("pages/travel", {search: results.data}); //pass a parameter to store the values of the api call
+    })
+    .catch(error => {
+      console.log(error);
+      res.render("pages/home", {message: "API call failed"});
+    });
+
+});
+
+app.get('/travel?:place', (req, res) =>{
+  const place = req.query.place;
+  axios({
+     url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${place}`,
+        method: 'GET'
+        // dataType:'json',
+        // params: {
+        //     "key": req.session.user.api_key,
+        //     "q": title, //if these are relevant for our api
+        //     "days": 5,
+        // }
+     })
+     .then(results => {
+        console.log(results.data)
+        res.render("pages/clothing", {current: results.data}); //pass a parameter to store the values of the api call
+     })
+     .catch(error => {
+      console.log(error);
+      res.render("pages/home", {message: "API call failed"});
+     });
+});
+
+app.get('/travel', (req, res) => {
+  res.render('pages/travel');
+});
+
+app.post('/travel/add', (req, res) => {
+  //console.log('added');
+  const query = 'INSERT into usersToCities (userID, cityID) values ($1, $2) returning *;';
+
+  //console.log(req.session.user.username);
+  //console.log(req.body);
+
+    db.any(query, [
+      req.session.user.username,
+      req.body.cityID
+  ])
+  .then(function (data) {
+    const query = 'SELECT * FROM cities;';
+
+    const query2 = `SELECT c.cityID, c.city, c.country FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1 `
+
+    db.any(query)
+        .then(async (data) => {
+
+          db.any(query2, [
+            req.session.user.username
+        ])
+          .then(async (data2) => {
+              console.log(data2);
+              res.render("pages/travel", {
+              data : data,
+              message: `Sucessfully added location`,
+              data2 : data2
+            });
+
+          })
+          .catch(function (err) {
+            res.send(err);
+          });
+
+        })
+        .catch(function (err) {
+          res.send(err);
+        });
+  })
+  .catch(function (err) {
+      res.redirect('/register');
+  });
+
+});
+
+app.post('/travel/remove', (req, res) => {
+  //console.log('added');
+  const query = 'DELETE FROM usersToCities WHERE userID = $1 AND cityID = $2;';
+
+  //console.log(req.session.user.username);
+  //console.log(req.body);
+
+    db.any(query, [
+      req.session.user.username,
+      req.body.cityID
+  ])
+  .then(function (data) {
+    const query = 'SELECT * FROM cities;';
+
+    const query2 = `SELECT * FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1 `
+
+    db.any(query)
+        .then(async (data) => {
+
+          db.any(query2, [
+            req.session.user.username
+        ])
+          .then(async (data2) => {
+              console.log(data2);
+              res.render("pages/travel", {
+              data : data,
+              message: `Sucessfully removed location`,
+              data2 : data2
+            });
+
+          })
+          .catch(function (err) {
+            res.send(err);
+          });
+
+        })
+        .catch(function (err) {
+          res.send(err);
+        });
+  })
+  .catch(function (err) {
+      res.redirect('/register');
+  });
+
+});
+
+app.get('/travel', (req, res) => {
+
+  if (authenticate(req, res)) {
+  const query = 'SELECT * FROM cities;';
+
+  // const query = `SELECT * FROM usersToCities INNER JOIN cities USING (cityID) WHERE userID = ${req.session.user.username};`
+
+  const query2 = `SELECT c.cityID, c.city, c.country FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1 `
+
+  db.any(query)
+      .then(async (data) => {
+
+        db.any(query2, [
+          req.session.user.username
+      ])
+        .then(async (data2) => {
+            console.log(data2);
+            res.render("pages/travel", {
+            data : data,
+            data2 : data2
+          });
+
+        })
+        .catch(function (err) {
+          res.send(err);
+        });
+
+      })
+      .catch(function (err) {
+        res.send(err);
+      });
+    }
+});
