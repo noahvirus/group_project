@@ -216,7 +216,7 @@ app.post('/register', async (req, res) => {
 
 app.get('/home', async (req,res) =>{
 
-  const location = ['Tokyo', 'New York', 'Paris', 'Beijing', 'London'];
+  const location = ['New York', 'London', 'Paris', 'Beijing', 'Tokyo'];
   var cities = [];
 
   for(let i = 0; i < 5; i++) {
