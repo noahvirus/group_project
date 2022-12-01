@@ -2,34 +2,60 @@
 <%- include ('../partials/header') %>
 <%- include ('../partials/menu_logout') %>
 
+<style>
+  .color{
+    color: white;
+  }
+</style>
 
 <main>
   <% var lines = "" %>
   <h1 align="center"> Travel Suggestions </h1>
   <div class="" align='center'>
     <h5> You have added <h5>
-    <% data.forEach(place => { %>
-      <% for (i = 1; i<= 1; i++) { %>
-         <%-place.city%>
-     <% } %>
-    <% }); %>
-    <h5> as favorites </h5>
+    <div class='color'>
+      <% data.forEach(place => { %>
+        <% for (i = 1; i<= 1; i++) { %>
+          <tr>
+            <th> <%-place.city%> </th> ,
+          </tr>
+       <% } %>
+      <% }); %>
+    </div>
+    <h5> as favorites. </h5>
   </div>
 
   <h4 align='center'>Here are some suggestions for cities to visit:</h4>
+
+  <table class="table" id = "CLASSTABLE">
+      <thead>
+        <tr>
+          <th scope="col" style='background-color: #FFFFE0; text-align:center'>City</th>
+          <th scope="col" style='background-color: #FFFFE0; text-align:left'>Country</th>
+          <th scope="col" style='background-color: #FFFFE0'>Favorite</th>
+        </tr>
+      </thead>
+
   <% data.forEach(place => { %>
-  <form id="form" align='center' action = "/travel/add" method="POST">
-    <!-- Configure how to add in other cities -->
-    <tr>
-      <th> <%-place.country%></th>
-      <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityid %>">
-      <th>
-          <button type="submit" class="btn btn-outline-success">Favorite</button>
+    <% let test = false %>
+    <% data.forEach(fav => {
+        if (fav.cityid == place.cityid) {
+          test = true;
+        }
+    }); %>
+        <form id="form" action = "/travel/add" method="POST">
 
-      </th>
+          <tr>
+            <th style='color:white'> <%-place.city%></th>
+            <th style='color:white'> <%-place.country%></th>
+            <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityid %>">
+            <th>
+                <button type="submit" class="btn btn-outline-success">Favorite</button>
 
-    </form>
-    <% }); %>
+            </th>
+          </form>
+          </tr>
+  <% }); %>
 </main>
 
 <%- include ('../partials/footer') %>
