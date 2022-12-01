@@ -14,13 +14,10 @@
   <div class="" align='center'>
     <h5> You have added <h5>
     <div class='color'>
-      <% data.forEach(place => { %>
-        <% for (i = 1; i<= 1; i++) { %>
           <tr>
-            <th> <%-place.city%> </th> ,
+            <th> <%-data%> </th> ,
           </tr>
-       <% } %>
-      <% }); %>
+
     </div>
     <h5> as favorites. </h5>
   </div>
@@ -36,24 +33,11 @@
         </tr>
       </thead>
 
-  <% data.forEach(place => { %>
-    <% let test = false %>
-    <% data.forEach(fav => {
-        if (fav.cityid == place.cityid) {
-          test = true;
-        }
-    }); %>
-        <form id="form" action = "/travel/add" method="POST">
+  <% data2.forEach(place => { %>
 
           <tr>
             <th style='color:white'> <%-place.city%></th>
             <th style='color:white'> <%-place.country%></th>
-            <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityid %>">
-            <th>
-                <button type="submit" class="btn btn-outline-success">Favorite</button>
-
-            </th>
-          </form>
           </tr>
   <% }); %>
 </main>
