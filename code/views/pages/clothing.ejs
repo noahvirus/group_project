@@ -77,8 +77,8 @@ img {
     <h1 style="margin:auto; text-align: center;">Clothing for <%= search.location.name %> </h1>
     <div class="row" >
         <div class="column">
-            <div class="card">
-                <h3>Clothing:</h3>
+            <div class="card" style="color: black;">
+                <h3 style="color: black;">Clothing:</h3>
                 <% if(condition == 1066 || condition ==  1117 || condition >= 1198 && condition <= 1225 || condition == 1279 || condition == 1282){ %> 
                     <image src='<%=snowJacket%>'>Snow Jacket</image>
                     <image src="<%=snowBoots%>">Snow Boots</image>
@@ -104,13 +104,13 @@ img {
         
         <div class="column">
             <div class="card">
-                <h3>Weather condition: <%= search.current.condition.text %></h3>
+                <h3  style="color: black;">Weather condition: <%= search.current.condition.text %></h3>
                 <% var icon = search.current.condition.icon %>
                 <% icon.slice(2) %>
                 <img src="<%=icon%>" style="height: 100px">
-                <h4>Temperature: <%= search.current.temp_f %>º F</h4>
-                <h4>Feels Like: <%= search.current.feelslike_f %>º F</h4>
-                <h4>Wind Gusts: <%= search.current.gust_mph %> mph</h4>
+                <h4  style="color: black;">Temperature: <%= search.current.temp_f %>º F</h4>
+                <h4  style="color: black;">Feels Like: <%= search.current.feelslike_f %>º F</h4>
+                <h4  style="color: black;">Wind Gusts: <%= search.current.gust_mph %> mph</h4>
             </div>
         </div>
     </div>
