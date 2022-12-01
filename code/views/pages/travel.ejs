@@ -1,57 +1,27 @@
-<<<<<<< Updated upstream
 <div class="col"><%- include ('../partials/message') %></div>
 <%- include ('../partials/header') %>
 <%- include ('../partials/menu_logout') %>
 
+<style>
+  .color{
+    color: white;
+  }
+</style>
 
 <main>
   <% var lines = "" %>
   <h1 align="center"> Travel Suggestions </h1>
   <div class="" align='center'>
     <h5> You have added <h5>
-    <% data.forEach(place => { %>
-      <% for (i = 1; i<= 1; i++) { %>
-         <%-place.city%>
-     <% } %>
-    <% }); %>
-    <h5> as favorites </h5>
-  </div>
-
-  <h4 align='center'>Here are some suggestions for cities to visit:</h4>
-  <% data.forEach(place => { %>
-  <form id="form" align='center' action = "/travel/add" method="POST">
-    <!-- Configure how to add in other cities -->
-    <tr>
-      <th> <%-place.country%></th>
-      <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityid %>">
-      <th>
-          <button type="submit" class="btn btn-outline-success">Favorite</button>
-
-      </th>
-
-    </form>
-    <% }); %>
-</main>
-
-<%- include ('../partials/footer') %>
-=======
-<div class="col"><%- include ('../partials/message') %></div>
-<%- include ('../partials/header') %>
-<%- include ('../partials/menu_logout') %>
-
-
-<main>
-  <% var lines = "" %>
-  <h1 align="center"> Travel Suggestions </h1>
-  <div class="" align='center'>
-    <h5> You have added <h5>
-    <% data.forEach(place => { %>
-      <% for (i = 1; i<= 1; i++) { %>
-        <tr>
-          <th> <%-place.city%> </th> ,
-        </tr>
-     <% } %>
-    <% }); %>
+    <div class='color'>
+      <% data.forEach(place => { %>
+        <% for (i = 1; i<= 1; i++) { %>
+          <tr>
+            <th> <%-place.city%> </th> ,
+          </tr>
+       <% } %>
+      <% }); %>
+    </div>
     <h5> as favorites. </h5>
   </div>
 
@@ -73,26 +43,11 @@
           test = true;
         }
     }); %>
-    <% if (test == true) { %>
-      <form id="form" action = "/travel/remove" method="POST">
-
-        <tr>
-          <th> <%-place.city%></th>
-          <th> <%-place.country%></th>
-          <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityid %>">
-          <th>
-              <button type="submit" class="btn btn-outline-danger">Remove</button>
-
-          </th>
-        </tr>
-
-
-      <% } else {%>
         <form id="form" action = "/travel/add" method="POST">
 
           <tr>
-            <th> <%-place.city%></th>
-            <th> <%-place.country%></th>
+            <th style='color:white'> <%-place.city%></th>
+            <th style='color:white'> <%-place.country%></th>
             <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityid %>">
             <th>
                 <button type="submit" class="btn btn-outline-success">Favorite</button>
@@ -100,11 +55,7 @@
             </th>
           </form>
           </tr>
-
-
-        <% } %>
   <% }); %>
 </main>
 
 <%- include ('../partials/footer') %>
->>>>>>> Stashed changes
