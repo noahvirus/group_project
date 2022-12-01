@@ -62,7 +62,8 @@ app.post('/login', async (req, res) => {
             // then there was no password for username and they need to register
             console.log("Username not registered")
             res.render("pages/register", {
-              message: "Username not registered"
+              message: "Username not registered",
+              error: "error"
             });
           }
           else {
@@ -81,7 +82,8 @@ app.post('/login', async (req, res) => {
       else {
         console.log("Incorrect Username or Password")
         res.render("pages/login", {
-          message: "Incorrect Username or Password"
+          message: "Incorrect Username or Password",
+          error: "error"
         });
       }
           }
@@ -90,7 +92,8 @@ app.post('/login', async (req, res) => {
       res.send(err);
       console.log("Login Post method errored")
       res.render("pages/register", {
-        message: "Login errored. Please Try again"
+        message: "Login errored. Please Try again",
+        error: "error"
       });
     });
 
@@ -135,21 +138,21 @@ app.get('/results?:location', (req, res) =>{
               db.any(query3, [req.session.user.username])
               .then(async (data4) => {
                   console.log(data4);
-                  res.render("pages/results", {search: results.data, data : data3, data2 : data4});
+                  res.render("pages/results", {search: results.data, data : data3, data2 : data4, session: req.session});
               })
                .catch(error => {
                 console.log(error);
-                res.render("pages/home", {message: "Database failure"});
+                res.render("pages/error", {message: "Database failure", session: req.session, error: "error"});
                });
             })
              .catch(error => {
               console.log(error);
-              res.render("pages/home", {message: "Database failure"});
-             }); 
+              res.render("pages/error", {message: "Database failure", session: req.session, error: "error"});
+             });
            })
            .catch(error => {
             console.log(error);
-            res.render("pages/home", {message: "Could not insert"});
+            res.render("pages/error", {message: "Could not insert", session: req.session, error: "error"});
            });
         }
         else{
@@ -157,28 +160,28 @@ app.get('/results?:location', (req, res) =>{
           db.any(query3, [req.session.user.username])
           .then(async (data4) => {
               console.log(data4);
-              res.render("pages/results", {search: results.data, data : data1, data2 : data4});
+              res.render("pages/results", {search: results.data, data : data1, data2 : data4, session: req.session});
           })
            .catch(error => {
             console.log(error);
-            res.render("pages/home", {message: "Database failure"});
+            res.render("pages/error", {message: "Database failure", session: req.session, error: "error"});
            });
         }
       })
       .catch(err=>{
         console.log(err);
-        res.render("pages/home", {message: "City not in database"});
+        res.render("pages/error", {message: "City not in database", session: req.session, error: "error"});
       })
     })
     .catch(err=>{
       console.log(err);
-      res.render("pages/home", {message: "API call failed"});
+      res.render("pages/error", {message: "API call failed", session: req.session, error: "error"});
     })
 });
 
-app.get('/results', (req, res) => {
-  res.render('pages/results');
-});
+// app.get('/results', (req, res) => {
+//   res.render('pages/results');
+// });
 
 app.get('/logout', (req, res) => {
   req.session.destroy();
@@ -204,7 +207,8 @@ app.post('/register', async (req, res) => {
   })
   .catch(function (err) {
       res.render("pages/register", {
-        message: "Something went Wrong. Please try Again"
+        message: "Something went Wrong. Please try Again",
+        error: "error"
       });
   });
 });
@@ -236,7 +240,7 @@ app.get('/clothing?:place', (req, res) =>{
         method: 'GET'
     })
     .then(results => {
-        console.log(results.data); 
+        console.log(results.data);
         res.render("pages/clothing", {search: results.data}); //pass a parameter to store the values of the api call
     })
     .catch(error => {
@@ -245,7 +249,7 @@ app.get('/clothing?:place', (req, res) =>{
     });
 
 });
-    
+
 // Server setup
 app.listen(3000, function(req, res) {
   console.log("Connected on port:3000");
@@ -381,7 +385,8 @@ const authenticate = (req, res) => {
   if (!req.session.user) {
       // Default to register page.
       res.render("pages/login", {
-        message: "Must Login to use this Feature"
+        message: "Must Log in to use this Feature",
+        error: "error"
       });
       return false;
   }
@@ -494,4 +499,173 @@ app.post('/results/remove', (req, res) => {
         res.redirect('/register');
     });
 
+});
+
+app.get('/travel?:place', (req, res) =>{
+  const place = req.query.place;
+  axios({
+    url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${place}`,
+        method: 'GET'
+    })
+    .then(results => {
+        console.log(results.data);
+        res.render("pages/travel", {search: results.data}); //pass a parameter to store the values of the api call
+    })
+    .catch(error => {
+      console.log(error);
+      res.render("pages/home", {message: "API call failed"});
+    });
+
+});
+
+app.get('/travel?:place', (req, res) =>{
+  const place = req.query.place;
+  axios({
+     url: `http://api.weatherapi.com/v1/current.json?key=2f70f3636af24e5cbce181754221811&q=${place}`,
+        method: 'GET'
+        // dataType:'json',
+        // params: {
+        //     "key": req.session.user.api_key,
+        //     "q": title, //if these are relevant for our api
+        //     "days": 5,
+        // }
+     })
+     .then(results => {
+        console.log(results.data)
+        res.render("pages/clothing", {current: results.data}); //pass a parameter to store the values of the api call
+     })
+     .catch(error => {
+      console.log(error);
+      res.render("pages/home", {message: "API call failed"});
+     });
+});
+
+app.get('/travel', (req, res) => {
+  res.render('pages/travel');
+});
+
+app.post('/travel/add', (req, res) => {
+  //console.log('added');
+  const query = 'INSERT into usersToCities (userID, cityID) values ($1, $2) returning *;';
+
+  //console.log(req.session.user.username);
+  //console.log(req.body);
+
+    db.any(query, [
+      req.session.user.username,
+      req.body.cityID
+  ])
+  .then(function (data) {
+    const query = 'SELECT * FROM cities;';
+
+    const query2 = `SELECT c.cityID, c.city, c.country FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1 `
+
+    db.any(query)
+        .then(async (data) => {
+
+          db.any(query2, [
+            req.session.user.username
+        ])
+          .then(async (data2) => {
+              console.log(data2);
+              res.render("pages/travel", {
+              data : data,
+              message: `Sucessfully added location`,
+              data2 : data2
+            });
+
+          })
+          .catch(function (err) {
+            res.send(err);
+          });
+
+        })
+        .catch(function (err) {
+          res.send(err);
+        });
+  })
+  .catch(function (err) {
+      res.redirect('/register');
+  });
+
+});
+
+app.post('/travel/remove', (req, res) => {
+  //console.log('added');
+  const query = 'DELETE FROM usersToCities WHERE userID = $1 AND cityID = $2;';
+
+  //console.log(req.session.user.username);
+  //console.log(req.body);
+
+    db.any(query, [
+      req.session.user.username,
+      req.body.cityID
+  ])
+  .then(function (data) {
+    const query = 'SELECT * FROM cities;';
+
+    const query2 = `SELECT * FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1 `
+
+    db.any(query)
+        .then(async (data) => {
+
+          db.any(query2, [
+            req.session.user.username
+        ])
+          .then(async (data2) => {
+              console.log(data2);
+              res.render("pages/travel", {
+              data : data,
+              message: `Sucessfully removed location`,
+              data2 : data2
+            });
+
+          })
+          .catch(function (err) {
+            res.send(err);
+          });
+
+        })
+        .catch(function (err) {
+          res.send(err);
+        });
+  })
+  .catch(function (err) {
+      res.redirect('/register');
+  });
+
+});
+
+app.get('/travel', (req, res) => {
+
+  if (authenticate(req, res)) {
+  const query = 'SELECT * FROM cities;';
+
+  // const query = `SELECT * FROM usersToCities INNER JOIN cities USING (cityID) WHERE userID = ${req.session.user.username};`
+
+  const query2 = `SELECT c.cityID, c.city, c.country FROM cities c INNER JOIN usersToCities u USING (cityID) WHERE u.userID = $1 `
+
+  db.any(query)
+      .then(async (data) => {
+
+        db.any(query2, [
+          req.session.user.username
+      ])
+        .then(async (data2) => {
+            console.log(data2);
+            res.render("pages/travel", {
+            data : data,
+            data2 : data2
+          });
+
+        })
+        .catch(function (err) {
+          res.send(err);
+        });
+
+      })
+      .catch(function (err) {
+        res.send(err);
+      });
+    }
 });

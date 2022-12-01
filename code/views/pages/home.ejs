@@ -9,12 +9,14 @@
 <main>
   <script type="module" src="index.js"></script>
 
+  <h1 style="text-align: center"> WeatherMen Weather Advisor</h1>
+
     <div class="container">
       <!-- THE REST OF YOUR HTML CODE GOES HERE -->
-      <form action="/results" method="GET"> 
+      <!-- <form action="/results" method="GET"> 
         <input type="search" id="location" name="location" placeholder="Search...">
         <button>Search</button>
-      </form>
+      </form> -->
 
       <div class="card-group mt-5 mb-2">
 
@@ -23,7 +25,7 @@
           <div class="card-body">
             <h5 class="card-title">Tokyo</h5>
             <p class="card-text">Local Time: <%=  search[0].data.location.localtime%></p>
-            <p class="card-text">Temperature (f): <%=  search[0].data.current.temp_f%>º</p>
+            <p class="card-text">Temperature (F): <%=  search[0].data.current.temp_f%>º</p>
             <p class="card-text">Humidity: <%=  search[0].data.current.humidity%></p>
             <p class="card-text">Wind Speed: <%=  search[0].data.current.wind_mph%> MPH</p>
             <p class="card-text">Condition: <%=  search[0].data.current.condition.text %></p>
@@ -36,7 +38,7 @@
           <div class="card-body">
             <h5 class="card-title">New York</h5>
             <p class="card-text">Local Time: <%=  search[1].data.location.localtime%></p>
-            <p class="card-text">Temperature (f): <%=  search[1].data.current.temp_f%>º</p>
+            <p class="card-text">Temperature (F): <%=  search[1].data.current.temp_f%>º</p>
             <p class="card-text">Humidity: <%=  search[1].data.current.humidity%></p>
             <p class="card-text">Wind Speed: <%=  search[1].data.current.wind_mph%> MPH</p>
             <p class="card-text">Condition: <%=  search[1].data.current.condition.text %></p>
@@ -49,7 +51,7 @@
           <div class="card-body">
             <h5 class="card-title">Paris</h5>
             <p class="card-text">Local Time: <%=  search[2].data.location.localtime%></p>
-            <p class="card-text">Temperature (f): <%=  search[2].data.current.temp_f%>º</p>
+            <p class="card-text">Temperature (F): <%=  search[2].data.current.temp_f%>º</p>
             <p class="card-text">Humidity: <%=  search[2].data.current.humidity%></p>
             <p class="card-text">Wind Speed: <%=  search[2].data.current.wind_mph%> MPH</p>
             <p class="card-text">Condition: <%=  search[2].data.current.condition.text %></p>
@@ -62,7 +64,7 @@
           <div class="card-body">
             <h5 class="card-title">Beijing</h5>
             <p class="card-text">Local Time: <%=  search[3].data.location.localtime%></p>
-            <p class="card-text">Temperature (f): <%=  search[3].data.current.temp_f%>º</p>
+            <p class="card-text">Temperature (F): <%=  search[3].data.current.temp_f%>º</p>
             <p class="card-text">Humidity: <%=  search[3].data.current.humidity%></p>
             <p class="card-text">Wind Speed: <%=  search[3].data.current.wind_mph%> MPH</p>
             <p class="card-text">Condition: <%=  search[3].data.current.condition.text %></p>
@@ -75,7 +77,7 @@
           <div class="card-body">
             <h5 class="card-title">London</h5>
             <p class="card-text">Local Time: <%=  search[4].data.location.localtime%></p>
-            <p class="card-text">Temperature (f): <%=  search[4].data.current.temp_f%>º</p>
+            <p class="card-text">Temperature (F): <%=  search[4].data.current.temp_f%>º</p>
             <p class="card-text">Humidity: <%=  search[4].data.current.humidity%></p>
             <p class="card-text">Wind Speed: <%=  search[4].data.current.wind_mph%> MPH</p>
             <p class="card-text">Condition: <%=  search[4].data.current.condition.text %></p>
@@ -86,7 +88,10 @@
       </div>
 
     </div>
+
+
 </main>
+
 
 
 

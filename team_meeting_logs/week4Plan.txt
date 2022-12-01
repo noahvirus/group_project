@@ -1,0 +1,13 @@
+Plan for week 4:
+
+We would like to finish:
+
+* Create sytle and CSS for the website 
+* Travel needs to be finished
+* Finish testing features
+* Finish the presentation slides
+* Finish the group survey
+* Present project to TA
+* Finish Project Report
+
+* Create corresponding Board User Stories and update them correspondingly
