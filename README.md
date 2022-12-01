@@ -12,13 +12,15 @@
 # Technology Stack:
 
 We used HTML for building the pages.
-We used (INSERT THE WEATHER API WE CHOOSE) for updating weather conditions.
+We used CSS to modify the appearence of pages.
+WE used github and a gihub project board to monitor our progress and edit code without interfer with each other.
+We used WeatherAPI for updating weather conditions.
 We used Javascript and Node.JS for interacting with pages.
 We used PostgreSQL for building and operating the database.
 
 # Prerequisites for Running the Application:
 
-UPDATE AS WE DEVELOP THE APP
+The user needs Docker downloaded. Docker needs to be running before accessing the site and terminal needs to be operational to run docker commands.
 
 # Instructions on how to Run the Application Locally:
 
@@ -28,12 +30,7 @@ UPDATE AS WE DEVELOP THE APP
 * run "docker-compose down" to being container down (add -v flag tp destory database contents)
 
 # How to run the Tests:
-
-UPDATE AS WE DEVELOP THE APP
-
-# Link to the Deployed Application:
-
-UPDATE AS WE DEVELOP THE APP
+All of our testing was done by users performing actions and tasks listed in the reports and observations document. 
 
 # Contributors:
 
