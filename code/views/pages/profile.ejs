@@ -10,7 +10,7 @@
       <!-- THE REST OF YOUR HTML CODE GOES HERE -->
       <div class="table-wrapper-scroll-y my-custom-scrollbar" style="overflow: hidden; overflow-y: scroll; height: 420px;">
       <table class="table" id = "CLASSTABLE">
-          <thead>
+          <thead style="color: white;">
             <tr>
               <th scope="col">City</th>
               <th scope="col">Country</th>
@@ -19,7 +19,7 @@
               <th scope="col">Clothing Suggestions</th>                             
             </tr>
           </thead>
-          <tbody>
+          <tbody style="color: white;">
 
 
             <% data.forEach(place => { %>
@@ -38,7 +38,7 @@
                     <form id="form" action = "/results?:location" method="GET">
                       <input type="hidden" id = "location" name="location" value="<%- place.city %>">
                     <th> 
-                      <button type="submit" class="btn btn-outline-dark">Weather</button>
+                      <button type="submit" class="btn btn-outline-success">Weather</button>
                     
                     </form>
                     </th>
