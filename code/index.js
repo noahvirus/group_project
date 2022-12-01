@@ -532,7 +532,7 @@ app.post('/results/remove', (req, res) => {
 //      })
 //      .then(results => {
 //         console.log(results.data)
-//         res.render("pages/clothing", {current: results.data}); //pass a parameter to store the values of the api call
+//         res.render("pages/travel", {current: results.data}); //pass a parameter to store the values of the api call
 //      })
 //      .catch(error => {
 //       console.log(error);
@@ -686,7 +686,7 @@ app.get('/travel', (req, res) => {
         console.log(data.length);
 
         if (data.length == 0) {
-          
+
           res.render("pages/travel", {
             none: data,
             message: "No other users in Database",
