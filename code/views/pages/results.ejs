@@ -14,7 +14,7 @@
       <button>Search</button>
     </form>
     <table class="table">
-      <thead>
+      <thead style="color: white;">
           <th>City</th>
           <th>Local Time</th>
           <th>Temperature (f)</th>
@@ -22,7 +22,7 @@
           <th>Wind Speed</th>
           <th>Condition</th>
       </thead>
-      <tbody>
+      <tbody style="color: white;">
           </div>
             <tr>
               <td><%=  search.location.name%></td>
@@ -53,7 +53,7 @@
               <td>
                   <form action='/clothing' method= "GET">
                     <input type='hidden' name="place" id="place" value="<%-  search.location.name%>">
-                    <button type='submit' class="btn btn-block" style="background-color: rgb(245, 172, 252);">Clothing</button>
+                    <button type='submit' class="btn btn-outline-info">Clothing</button>
                 </form>
             </td>
             </tr>
