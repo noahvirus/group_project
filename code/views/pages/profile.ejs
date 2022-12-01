@@ -2,11 +2,13 @@
 <%- include ('../partials/header') %> 
 <%- include ('../partials/menu_logout') %>
 
-<h1 style="text-align: center"> Welcome <%- username %>!</h1>
-
 <main>
+  <h1 style="text-align: center"> Welcome <%- username %>!</h1>
+  <h3 style="text-align: center"> These are your favortie cities!</h3>
+  <div style="height: 100px;">
     <div class="container">
       <!-- THE REST OF YOUR HTML CODE GOES HERE -->
+      <div class="table-wrapper-scroll-y my-custom-scrollbar" style="overflow: hidden; overflow-y: scroll; height: 420px;">
       <table class="table" id = "CLASSTABLE">
           <thead>
             <tr>
@@ -75,6 +77,8 @@
               </tbody>
             </table>
         </div>
+      </div>
+    </div>
       </main>
 
 
