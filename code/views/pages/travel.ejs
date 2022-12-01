@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <div class="col"><%- include ('../partials/message') %></div>
 <%- include ('../partials/header') %>
 <%- include ('../partials/menu_logout') %>
@@ -33,3 +34,77 @@
 </main>
 
 <%- include ('../partials/footer') %>
+=======
+<div class="col"><%- include ('../partials/message') %></div>
+<%- include ('../partials/header') %>
+<%- include ('../partials/menu_logout') %>
+
+
+<main>
+  <% var lines = "" %>
+  <h1 align="center"> Travel Suggestions </h1>
+  <div class="" align='center'>
+    <h5> You have added <h5>
+    <% data.forEach(place => { %>
+      <% for (i = 1; i<= 1; i++) { %>
+        <tr>
+          <th> <%-place.city%> </th> ,
+        </tr>
+     <% } %>
+    <% }); %>
+    <h5> as favorites. </h5>
+  </div>
+
+  <h4 align='center'>Here are some suggestions for cities to visit:</h4>
+
+  <table class="table" id = "CLASSTABLE">
+      <thead>
+        <tr>
+          <th scope="col" style='background-color: #FFFFE0; text-align:center'>City</th>
+          <th scope="col" style='background-color: #FFFFE0; text-align:left'>Country</th>
+          <th scope="col" style='background-color: #FFFFE0'>Favorite</th>
+        </tr>
+      </thead>
+
+  <% data.forEach(place => { %>
+    <% let test = false %>
+    <% data.forEach(fav => {
+        if (fav.cityid == place.cityid) {
+          test = true;
+        }
+    }); %>
+    <% if (test == true) { %>
+      <form id="form" action = "/travel/remove" method="POST">
+
+        <tr>
+          <th> <%-place.city%></th>
+          <th> <%-place.country%></th>
+          <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityid %>">
+          <th>
+              <button type="submit" class="btn btn-outline-danger">Remove</button>
+
+          </th>
+        </tr>
+
+
+      <% } else {%>
+        <form id="form" action = "/travel/add" method="POST">
+
+          <tr>
+            <th> <%-place.city%></th>
+            <th> <%-place.country%></th>
+            <input type="hidden" id = "cityID" name="cityID" value="<%- place.cityid %>">
+            <th>
+                <button type="submit" class="btn btn-outline-success">Favorite</button>
+
+            </th>
+          </form>
+          </tr>
+
+
+        <% } %>
+  <% }); %>
+</main>
+
+<%- include ('../partials/footer') %>
+>>>>>>> Stashed changes
