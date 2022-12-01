@@ -100,3 +100,15 @@ VALUES
     ('Hobert', 'Australia'),
     ('Budapest', 'Hungary'),
     ('Reykjavik', 'Iceland');
+
+INSERT INTO users(username, password)
+VALUES
+    ('Boby', 'blawblaw'),
+    ('Jayman', 'jayrules');
+
+INSERT INTO usersToCities(userID, cityID)
+VALUES
+    (1, 3),
+    (1, 6),
+    (2, 8),
+    (2, 20);
