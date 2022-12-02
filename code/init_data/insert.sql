@@ -104,11 +104,35 @@ VALUES
 INSERT INTO users(username, password)
 VALUES
     ('Boby', 'blawblaw'),
-    ('Jayman', 'jayrules');
+    ('blaw', 'b'),
+    ('other', 'dude'),
+    ('baby', 'boy'),
+    ('happy', 'gilmore'),
+    ('busche', 'iran'),
+    ('usa', 'won'),
+    ('brazil', 'best'),
+    ('close', 'by'),
+    ('japan', 'nearby');
 
 INSERT INTO usersToCities(userID, cityID)
 VALUES
     (1, 3),
     (1, 6),
     (2, 8),
-    (2, 20);
+    (2, 20),
+    (3, 40),
+    (3, 28),
+    (4, 10),
+    (4, 37),
+    (5, 27),
+    (5, 40),
+    (6, 80),
+    (6, 61),
+    (7, 5),
+    (7, 6),
+    (8, 43),
+    (8, 34),
+    (9, 9),
+    (9, 10),
+    (10, 20),
+    (10, 76);
